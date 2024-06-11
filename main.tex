@@ -146,7 +146,7 @@ where $e(t)$ is the error defined in equation \eqref{eq:error1}.  Then, the opti
 The moving horizon quantiser (MHOQ) with prediction horizon $N = 1$ is equivalent to the noise shaping quantiser.  By choosing low-pass filter $$H(z)  = \frac{1 }{ 1- F(z)},$$  the MHOQ conicides with the noise shaping quantiser.
 
 
-\section{Frequency response and NTF}
+\section{Frequency response: LPF and NTF}
 \subsection{Perception filter}
 The  frequency response and the STF and NTF of the perception filter used in  
 \cite{goodwin2003moving} are shown in the
@@ -167,38 +167,37 @@ figure below,
 \end{figure}
 
 
-\newpage
-\subsection{Frequency response and NTF: Butterworth Filter}
+% \subsection{Butterworth Filter}
 
-\begin{figure}[!h]
-	\centering
-	\begin{minipage}{0.45\linewidth}
-		\centering
-		\includegraphics[scale = 0.45]{plots/but_lp_ntf_2_10.eps}
-		\caption{Frequency response of low-pass Butterworth and  corresponding high-pass  NTF}
-	\end{minipage}
-	\hfil
-	\begin{minipage}{0.45\linewidth}
-		\centering
-		\includegraphics[scale = 0.45]{plots/but_lp_ntf_3_10.eps}
-		\caption{Frequency response of low-pass Butterworth and  corresponding high-pass  NTF}
-	\end{minipage}
-\end{figure}
+% \begin{figure}[!h]
+% 	\centering
+% 	\begin{minipage}{0.45\linewidth}
+% 		\centering
+% 		\includegraphics[scale = 0.45]{plots/but_lp_ntf_2_10.eps}
+% 		\caption{Frequency response of low-pass Butterworth and  corresponding high-pass  NTF}
+% 	\end{minipage}
+% 	\hfil
+% 	\begin{minipage}{0.45\linewidth}
+% 		\centering
+% 		\includegraphics[scale = 0.45]{plots/but_lp_ntf_3_10.eps}
+% 		\caption{Frequency response of low-pass Butterworth and  corresponding high-pass  NTF}
+% 	\end{minipage}
+% \end{figure}
 
-\begin{figure}[!h]
-	\centering
-	\begin{minipage}{0.45\linewidth}
-		\centering
-		\includegraphics[scale = 0.45]{plots/but_lp_ntf_2_100_1000.eps}
-		\caption{Frequency response of low-pass Butterworth and  corresponding high-pass  NTF}
-	\end{minipage}
-	\hfil
-	\begin{minipage}{0.45\linewidth}
-		\centering
-		\includegraphics[scale = 0.45]{plots/but_lp_ntf_3_100_1000.eps}
-		\caption{Frequency response of low-pass Butterworth and  corresponding high-pass  NTF}
-	\end{minipage}
-\end{figure}
+% \begin{figure}[!h]
+% 	\centering
+% 	\begin{minipage}{0.45\linewidth}
+% 		\centering
+% 		\includegraphics[scale = 0.45]{plots/but_lp_ntf_2_100_1000.eps}
+% 		\caption{Frequency response of low-pass Butterworth and  corresponding high-pass  NTF}
+% 	\end{minipage}
+% 	\hfil
+% 	\begin{minipage}{0.45\linewidth}
+% 		\centering
+% 		\includegraphics[scale = 0.45]{plots/but_lp_ntf_3_100_1000.eps}
+% 		\caption{Frequency response of low-pass Butterworth and  corresponding high-pass  NTF}
+% 	\end{minipage}
+% \end{figure}
 
 
 \section{Noise Transfer Function(NTF)}
@@ -234,8 +233,87 @@ The frequency response of the noise transfer functions due to butterworth filter
 	\end{minipage}
 \end{figure}
 
+\section{Optimal Noise shaping filter}
+Can we design a optimal noise shaping filter for the frequency bandwith of our interest such that we get resonable ENOB using MPC? For now with $F_{s} = 1 \textrm{MHz}$ and $F_{c} = 100 \textrm{kHz}$ we are not getting improvement in the performance without increasing the sampling frequency. In the following figures, we plot the frequency response of the LPF and the spectrum of the quantisation error. 
 
-\newpage
+
+\begin{figure}[!h]
+	\centering
+	\begin{minipage}{0.45\linewidth}
+		\centering
+		\includegraphics[scale = 0.45]{plots/quant_err_butter_2nd_10k_1mhz_inl.eps}
+		\caption{Butterworth Frequency response and frequency spectrum of quantisation noise:  
+				\\ \textbf{Fc} = 10 kHz, \textbf{Fs} = 1 MHz, \textbf{ENOB} = 18.47, \textbf{Uniform}}
+	\end{minipage}
+	\hfil
+	\begin{minipage}{0.45\linewidth}
+		\centering
+		\includegraphics[scale = 0.45]{plots/quant_err_butter_2nd_100k_1mhz_ideal.eps}
+		\textbf{\caption{Butterworth Frequency response  and frequency spectrum of quantisation noise:  
+					\\ \textbf{Fc} = 100 kHz, \textbf{Fs} = 1 MHz, \textbf{ENOB} = 9.09, \textbf{Uniform}
+				}}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\begin{minipage}{0.45\linewidth}
+		\centering
+		\includegraphics[scale = 0.45]{plots/filt_vs_qnoise_10k_fs10mhz_ideal.eps}
+		\caption{Butterworth Frequency response and frequency spectrum of quantisation noise:  
+				\\ \textbf{Fc} = 10 kHz, \textbf{Fs} = 10 MHz, \textbf{ENOB} = 26.2, \textbf{Uniform}
+}
+	\end{minipage}
+	\hfil
+	\begin{minipage}{0.45\linewidth}
+		\centering
+		\includegraphics[scale = 0.45]{plots/filt_vs_qnoise_100k_fs10mhz_ideal.eps}
+		\textbf{\caption{Butterworth Frequency response  and frequency spectrum of quantisation noise: 
+					\\ \textbf{Fc} = 100 kHz, \textbf{Fs} = 10 MHz, \textbf{ENOB} = 17.31, \textbf{Unifrom}
+}}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\begin{minipage}{0.45\linewidth}
+		\centering
+		\includegraphics[scale = 0.45]{plots/quant_err_butter_2nd_10k_1mhz_inl.eps}
+		\caption{Butterworth Frequency response and frequency spectrum of quantisation noise:  
+			\\ \textbf{Fc} = 10 kHz, \textbf{Fs} = 1 MHz, \textbf{ENOB} = 16.58, \textbf{INL} }
+	\end{minipage}
+	\hfil
+	\begin{minipage}{0.45\linewidth}
+		\centering
+		\includegraphics[scale = 0.45]{plots/quant_err_butter_2nd_100k_1mhz_inl.eps}
+		\textbf{\caption{Butterworth Frequency response  and frequency spectrum of quantisation noise: 
+					\\ \textbf{Fc} = 100 kHz, \textbf{Fs} = 1 MHz, \textbf{ENOB} =7.43, \textbf{INL}
+ }}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\begin{minipage}{0.45\linewidth}
+		\centering
+		\includegraphics[scale = 0.45]{plots/quant_err_butter_2nd_10k_10mhz_inl.eps}
+		\caption{Butterworth Frequency response and frequency spectrum of quantisation noise: 
+		\\ \textbf{Fc} = 10 kHz, \textbf{Fs} = 10 MHz, \textbf{ENOB} = 25.12, \textbf{INL}}
+	\end{minipage}
+	\hfil
+	\begin{minipage}{0.45\linewidth}
+		\centering
+		\includegraphics[scale = 0.45]{plots/quant_err_butter_2nd_100k_10mhz_inl.eps}
+		\textbf{\caption{Butterworth Frequency response  and frequency spectrum of quantisation noise:  
+			\\ \textbf{Fc} = 100 kHz, \textbf{Fs} = 10 MHz, \textbf{ENOB} = 17.03, \textbf{INL}	
+ }}
+	\end{minipage}
+\end{figure}
+
+\section{Synthesis of optimal noise-shaping filter}
+
+
+
 %\section{References}
 %\label{sec:org89add8d}
 \bibliographystyle{unsrt}

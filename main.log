@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.13)  11 JUN 2024 14:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.13)  11 JUN 2024 14:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -471,12 +471,12 @@ Overfull \hbox (8.13074pt too wide) in paragraph at lines 73--79
 \T1/cmr/m/n/10 through oversampling and feedback. The reconstruction filter is then used to attenuate the frequency-shaped quantisation
  []
 
-<figures/noise_shaping2.pdf, id=36, 118.2907pt x 54.55174pt>
+<figures/noise_shaping2.pdf, id=40, 118.2907pt x 54.55174pt>
 File: figures/noise_shaping2.pdf Graphic file (type pdf)
 <use figures/noise_shaping2.pdf>
 Package pdftex.def Info: figures/noise_shaping2.pdf  used on input line 84.
 (pdftex.def)             Requested size: 177.43558pt x 81.82738pt.
-<figures/noise_shaping_redrawn.pdf, id=37, 161.35622pt x 52.67679pt>
+<figures/noise_shaping_redrawn.pdf, id=41, 161.35622pt x 52.67679pt>
 File: figures/noise_shaping_redrawn.pdf Graphic file (type pdf)
 <use figures/noise_shaping_redrawn.pdf>
 Package pdftex.def Info: figures/noise_shaping_redrawn.pdf  used on input line 91.
@@ -501,7 +501,7 @@ Package epstopdf Info: Source file: <plots/percp.eps>
 (epstopdf)             Command: <repstopdf --outfile=plots/percp-eps-converted-to.pdf plots/percp.eps>
 (epstopdf)             \includegraphics on input line 158.
 Package epstopdf Info: Output file is already uptodate.
-<plots/percp-eps-converted-to.pdf, id=69, 562.1pt x 421.575pt>
+<plots/percp-eps-converted-to.pdf, id=73, 562.1pt x 421.575pt>
 File: plots/percp-eps-converted-to.pdf Graphic file (type pdf)
 <use plots/percp-eps-converted-to.pdf>
 Package pdftex.def Info: plots/percp-eps-converted-to.pdf  used on input line 158.
@@ -520,7 +520,7 @@ Package epstopdf Info: Source file: <plots/stf_ntf_perception_linear.eps>
 (epstopdf)             Command: <repstopdf --outfile=plots/stf_ntf_perception_linear-eps-converted-to.pdf plots/stf_ntf_perception_linear.eps>
 (epstopdf)             \includegraphics on input line 164.
 Package epstopdf Info: Output file is already uptodate.
-<plots/stf_ntf_perception_linear-eps-converted-to.pdf, id=70, 562.1pt x 421.575pt>
+<plots/stf_ntf_perception_linear-eps-converted-to.pdf, id=74, 562.1pt x 421.575pt>
 File: plots/stf_ntf_perception_linear-eps-converted-to.pdf Graphic file (type pdf)
 <use plots/stf_ntf_perception_linear-eps-converted-to.pdf>
 Package pdftex.def Info: plots/stf_ntf_perception_linear-eps-converted-to.pdf  used on input line 164.
@@ -530,102 +530,8 @@ Overfull \hbox (22.4769pt too wide) in paragraph at lines 164--165
  [][] 
  []
 
-[2 <./plots/percp-eps-converted-to.pdf> <./plots/stf_ntf_perception_linear-eps-converted-to.pdf>]
-Package epstopdf Info: Source file: <plots/but_lp_ntf_2_10.eps>
-(epstopdf)                    date: 2024-05-08 13:36:43
-(epstopdf)                    size: 250034 bytes
-(epstopdf)             Output file: <plots/but_lp_ntf_2_10-eps-converted-to.pdf>
-(epstopdf)                    date: 2024-05-08 13:36:46
-(epstopdf)                    size: 82046 bytes
-(epstopdf)             Command: <repstopdf --outfile=plots/but_lp_ntf_2_10-eps-converted-to.pdf plots/but_lp_ntf_2_10.eps>
-(epstopdf)             \includegraphics on input line 177.
-Package epstopdf Info: Output file is already uptodate.
-<plots/but_lp_ntf_2_10-eps-converted-to.pdf, id=98, 562.1pt x 421.575pt>
-File: plots/but_lp_ntf_2_10-eps-converted-to.pdf Graphic file (type pdf)
-<use plots/but_lp_ntf_2_10-eps-converted-to.pdf>
-Package pdftex.def Info: plots/but_lp_ntf_2_10-eps-converted-to.pdf  used on input line 177.
-(pdftex.def)             Requested size: 252.94266pt x 189.70699pt.
 
-Overfull \hbox (22.4769pt too wide) in paragraph at lines 177--178
- [][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 178--178
-[]\T1/cmr/m/n/10 Figure 5: |Frequency response of low-pass
- []
-
-Package epstopdf Info: Source file: <plots/but_lp_ntf_3_10.eps>
-(epstopdf)                    date: 2024-05-08 13:36:22
-(epstopdf)                    size: 244798 bytes
-(epstopdf)             Output file: <plots/but_lp_ntf_3_10-eps-converted-to.pdf>
-(epstopdf)                    date: 2024-05-08 13:36:47
-(epstopdf)                    size: 78154 bytes
-(epstopdf)             Command: <repstopdf --outfile=plots/but_lp_ntf_3_10-eps-converted-to.pdf plots/but_lp_ntf_3_10.eps>
-(epstopdf)             \includegraphics on input line 183.
-Package epstopdf Info: Output file is already uptodate.
-<plots/but_lp_ntf_3_10-eps-converted-to.pdf, id=99, 562.1pt x 421.575pt>
-File: plots/but_lp_ntf_3_10-eps-converted-to.pdf Graphic file (type pdf)
-<use plots/but_lp_ntf_3_10-eps-converted-to.pdf>
-Package pdftex.def Info: plots/but_lp_ntf_3_10-eps-converted-to.pdf  used on input line 183.
-(pdftex.def)             Requested size: 252.94266pt x 189.70699pt.
-
-Overfull \hbox (22.4769pt too wide) in paragraph at lines 183--184
- [][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 184--184
-[]\T1/cmr/m/n/10 Figure 6: |Frequency response of low-pass
- []
-
-Package epstopdf Info: Source file: <plots/but_lp_ntf_2_100_1000.eps>
-(epstopdf)                    date: 2024-05-08 13:29:20
-(epstopdf)                    size: 239674 bytes
-(epstopdf)             Output file: <plots/but_lp_ntf_2_100_1000-eps-converted-to.pdf>
-(epstopdf)                    date: 2024-05-08 13:30:23
-(epstopdf)                    size: 66806 bytes
-(epstopdf)             Command: <repstopdf --outfile=plots/but_lp_ntf_2_100_1000-eps-converted-to.pdf plots/but_lp_ntf_2_100_1000.eps>
-(epstopdf)             \includegraphics on input line 192.
-Package epstopdf Info: Output file is already uptodate.
-<plots/but_lp_ntf_2_100_1000-eps-converted-to.pdf, id=100, 562.1pt x 421.575pt>
-File: plots/but_lp_ntf_2_100_1000-eps-converted-to.pdf Graphic file (type pdf)
-<use plots/but_lp_ntf_2_100_1000-eps-converted-to.pdf>
-Package pdftex.def Info: plots/but_lp_ntf_2_100_1000-eps-converted-to.pdf  used on input line 192.
-(pdftex.def)             Requested size: 252.94266pt x 189.70699pt.
-
-Overfull \hbox (22.4769pt too wide) in paragraph at lines 192--193
- [][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 193--193
-[]\T1/cmr/m/n/10 Figure 7: |Frequency response of low-pass
- []
-
-Package epstopdf Info: Source file: <plots/but_lp_ntf_3_100_1000.eps>
-(epstopdf)                    date: 2024-05-08 13:29:55
-(epstopdf)                    size: 239973 bytes
-(epstopdf)             Output file: <plots/but_lp_ntf_3_100_1000-eps-converted-to.pdf>
-(epstopdf)                    date: 2024-05-08 13:30:23
-(epstopdf)                    size: 65301 bytes
-(epstopdf)             Command: <repstopdf --outfile=plots/but_lp_ntf_3_100_1000-eps-converted-to.pdf plots/but_lp_ntf_3_100_1000.eps>
-(epstopdf)             \includegraphics on input line 198.
-Package epstopdf Info: Output file is already uptodate.
-<plots/but_lp_ntf_3_100_1000-eps-converted-to.pdf, id=101, 562.1pt x 421.575pt>
-File: plots/but_lp_ntf_3_100_1000-eps-converted-to.pdf Graphic file (type pdf)
-<use plots/but_lp_ntf_3_100_1000-eps-converted-to.pdf>
-Package pdftex.def Info: plots/but_lp_ntf_3_100_1000-eps-converted-to.pdf  used on input line 198.
-(pdftex.def)             Requested size: 252.94266pt x 189.70699pt.
-
-Overfull \hbox (22.4769pt too wide) in paragraph at lines 198--199
- [][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 199--199
-[]\T1/cmr/m/n/10 Figure 8: |Frequency response of low-pass
- []
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 Package epstopdf Info: Source file: <fig_stf_ntf/ntf_vs_freq.eps>
 (epstopdf)                    date: 2024-06-10 16:24:29
@@ -634,15 +540,15 @@ Package epstopdf Info: Source file: <fig_stf_ntf/ntf_vs_freq.eps>
 (epstopdf)                    date: 2024-06-10 16:25:53
 (epstopdf)                    size: 12013 bytes
 (epstopdf)             Command: <repstopdf --outfile=fig_stf_ntf/ntf_vs_freq-eps-converted-to.pdf fig_stf_ntf/ntf_vs_freq.eps>
-(epstopdf)             \includegraphics on input line 224.
+(epstopdf)             \includegraphics on input line 223.
 Package epstopdf Info: Output file is already uptodate.
-<fig_stf_ntf/ntf_vs_freq-eps-converted-to.pdf, id=104, 562.1pt x 421.575pt>
+<fig_stf_ntf/ntf_vs_freq-eps-converted-to.pdf, id=77, 562.1pt x 421.575pt>
 File: fig_stf_ntf/ntf_vs_freq-eps-converted-to.pdf Graphic file (type pdf)
 <use fig_stf_ntf/ntf_vs_freq-eps-converted-to.pdf>
-Package pdftex.def Info: fig_stf_ntf/ntf_vs_freq-eps-converted-to.pdf  used on input line 224.
+Package pdftex.def Info: fig_stf_ntf/ntf_vs_freq-eps-converted-to.pdf  used on input line 223.
 (pdftex.def)             Requested size: 281.04932pt x 210.78697pt.
 
-Overfull \hbox (50.58356pt too wide) in paragraph at lines 224--225
+Overfull \hbox (50.58356pt too wide) in paragraph at lines 223--224
  [][] 
  []
 
@@ -653,41 +559,217 @@ Package epstopdf Info: Source file: <fig_stf_ntf/lpf_ntf_vs_freq.eps>
 (epstopdf)                    date: 2024-06-10 16:57:15
 (epstopdf)                    size: 12436 bytes
 (epstopdf)             Command: <repstopdf --outfile=fig_stf_ntf/lpf_ntf_vs_freq-eps-converted-to.pdf fig_stf_ntf/lpf_ntf_vs_freq.eps>
-(epstopdf)             \includegraphics on input line 231.
+(epstopdf)             \includegraphics on input line 230.
 Package epstopdf Info: Output file is already uptodate.
-<fig_stf_ntf/lpf_ntf_vs_freq-eps-converted-to.pdf, id=105, 562.1pt x 421.575pt>
+<fig_stf_ntf/lpf_ntf_vs_freq-eps-converted-to.pdf, id=78, 562.1pt x 421.575pt>
 File: fig_stf_ntf/lpf_ntf_vs_freq-eps-converted-to.pdf Graphic file (type pdf)
 <use fig_stf_ntf/lpf_ntf_vs_freq-eps-converted-to.pdf>
-Package pdftex.def Info: fig_stf_ntf/lpf_ntf_vs_freq-eps-converted-to.pdf  used on input line 231.
+Package pdftex.def Info: fig_stf_ntf/lpf_ntf_vs_freq-eps-converted-to.pdf  used on input line 230.
 (pdftex.def)             Requested size: 281.04932pt x 210.78697pt.
 
-Overfull \hbox (50.58356pt too wide) in paragraph at lines 231--232
+Overfull \hbox (50.58356pt too wide) in paragraph at lines 230--231
  [][] 
  []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[3 <./plots/but_lp_ntf_2_10-eps-converted-to.pdf> <./plots/but_lp_ntf_3_10-eps-converted-to.pdf> <./plots/but_lp_ntf_2_100_1000-eps-converted-to.pdf> <./plots/but_lp_ntf_3_100_1000-eps-converted-to.pdf>] (./main.bbl) [4 <./fig_stf_ntf/ntf_vs_freq-eps-converted-to.pdf> <./fig_stf_ntf/lpf_ntf_vs_freq-eps-converted-to.pdf>] (./main.aux)
+[2 <./plots/percp-eps-converted-to.pdf> <./plots/stf_ntf_perception_linear-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <plots/quant_err_butter_2nd_10k_1mhz_inl.eps>
+(epstopdf)                    date: 2024-05-13 10:23:56
+(epstopdf)                    size: 285771 bytes
+(epstopdf)             Output file: <plots/quant_err_butter_2nd_10k_1mhz_inl-eps-converted-to.pdf>
+(epstopdf)                    date: 2024-05-13 10:24:55
+(epstopdf)                    size: 100402 bytes
+(epstopdf)             Command: <repstopdf --outfile=plots/quant_err_butter_2nd_10k_1mhz_inl-eps-converted-to.pdf plots/quant_err_butter_2nd_10k_1mhz_inl.eps>
+(epstopdf)             \includegraphics on input line 244.
+Package epstopdf Info: Output file is already uptodate.
+<plots/quant_err_butter_2nd_10k_1mhz_inl-eps-converted-to.pdf, id=107, 562.1pt x 421.575pt>
+File: plots/quant_err_butter_2nd_10k_1mhz_inl-eps-converted-to.pdf Graphic file (type pdf)
+<use plots/quant_err_butter_2nd_10k_1mhz_inl-eps-converted-to.pdf>
+Package pdftex.def Info: plots/quant_err_butter_2nd_10k_1mhz_inl-eps-converted-to.pdf  used on input line 244.
+(pdftex.def)             Requested size: 252.94266pt x 189.70699pt.
+
+Overfull \hbox (22.4769pt too wide) in paragraph at lines 244--246
+ [][] 
+ []
+
+
+Underfull \hbox (badness 1533) in paragraph at lines 246--246
+[]\T1/cmr/m/n/10 Figure 7: |Butterworth Frequency response and
+ []
+
+Package epstopdf Info: Source file: <plots/quant_err_butter_2nd_100k_1mhz_ideal.eps>
+(epstopdf)                    date: 2024-05-13 11:20:41
+(epstopdf)                    size: 285254 bytes
+(epstopdf)             Output file: <plots/quant_err_butter_2nd_100k_1mhz_ideal-eps-converted-to.pdf>
+(epstopdf)                    date: 2024-05-13 11:22:21
+(epstopdf)                    size: 98464 bytes
+(epstopdf)             Command: <repstopdf --outfile=plots/quant_err_butter_2nd_100k_1mhz_ideal-eps-converted-to.pdf plots/quant_err_butter_2nd_100k_1mhz_ideal.eps>
+(epstopdf)             \includegraphics on input line 251.
+Package epstopdf Info: Output file is already uptodate.
+<plots/quant_err_butter_2nd_100k_1mhz_ideal-eps-converted-to.pdf, id=108, 562.1pt x 421.575pt>
+File: plots/quant_err_butter_2nd_100k_1mhz_ideal-eps-converted-to.pdf Graphic file (type pdf)
+<use plots/quant_err_butter_2nd_100k_1mhz_ideal-eps-converted-to.pdf>
+Package pdftex.def Info: plots/quant_err_butter_2nd_100k_1mhz_ideal-eps-converted-to.pdf  used on input line 251.
+(pdftex.def)             Requested size: 252.94266pt x 189.70699pt.
+
+Overfull \hbox (22.4769pt too wide) in paragraph at lines 251--254
+ [][] 
+ []
+
+
+Underfull \hbox (badness 1533) in paragraph at lines 254--254
+[]\T1/cmr/m/n/10 Figure 8: |Butterworth Frequency response and
+ []
+
+Package epstopdf Info: Source file: <plots/filt_vs_qnoise_10k_fs10mhz_ideal.eps>
+(epstopdf)                    date: 2024-05-06 16:27:44
+(epstopdf)                    size: 312013 bytes
+(epstopdf)             Output file: <plots/filt_vs_qnoise_10k_fs10mhz_ideal-eps-converted-to.pdf>
+(epstopdf)                    date: 2024-05-06 16:27:48
+(epstopdf)                    size: 108582 bytes
+(epstopdf)             Command: <repstopdf --outfile=plots/filt_vs_qnoise_10k_fs10mhz_ideal-eps-converted-to.pdf plots/filt_vs_qnoise_10k_fs10mhz_ideal.eps>
+(epstopdf)             \includegraphics on input line 262.
+Package epstopdf Info: Output file is already uptodate.
+<plots/filt_vs_qnoise_10k_fs10mhz_ideal-eps-converted-to.pdf, id=109, 562.1pt x 421.575pt>
+File: plots/filt_vs_qnoise_10k_fs10mhz_ideal-eps-converted-to.pdf Graphic file (type pdf)
+<use plots/filt_vs_qnoise_10k_fs10mhz_ideal-eps-converted-to.pdf>
+Package pdftex.def Info: plots/filt_vs_qnoise_10k_fs10mhz_ideal-eps-converted-to.pdf  used on input line 262.
+(pdftex.def)             Requested size: 252.94266pt x 189.70699pt.
+
+Overfull \hbox (22.4769pt too wide) in paragraph at lines 262--265
+ [][] 
+ []
+
+
+Underfull \hbox (badness 1533) in paragraph at lines 265--265
+[]\T1/cmr/m/n/10 Figure 9: |Butterworth Frequency response and
+ []
+
+Package epstopdf Info: Source file: <plots/filt_vs_qnoise_100k_fs10mhz_ideal.eps>
+(epstopdf)                    date: 2024-05-06 16:35:09
+(epstopdf)                    size: 312821 bytes
+(epstopdf)             Output file: <plots/filt_vs_qnoise_100k_fs10mhz_ideal-eps-converted-to.pdf>
+(epstopdf)                    date: 2024-05-06 16:35:17
+(epstopdf)                    size: 107962 bytes
+(epstopdf)             Command: <repstopdf --outfile=plots/filt_vs_qnoise_100k_fs10mhz_ideal-eps-converted-to.pdf plots/filt_vs_qnoise_100k_fs10mhz_ideal.eps>
+(epstopdf)             \includegraphics on input line 270.
+Package epstopdf Info: Output file is already uptodate.
+<plots/filt_vs_qnoise_100k_fs10mhz_ideal-eps-converted-to.pdf, id=110, 562.1pt x 421.575pt>
+File: plots/filt_vs_qnoise_100k_fs10mhz_ideal-eps-converted-to.pdf Graphic file (type pdf)
+<use plots/filt_vs_qnoise_100k_fs10mhz_ideal-eps-converted-to.pdf>
+Package pdftex.def Info: plots/filt_vs_qnoise_100k_fs10mhz_ideal-eps-converted-to.pdf  used on input line 270.
+(pdftex.def)             Requested size: 252.94266pt x 189.70699pt.
+
+Overfull \hbox (22.4769pt too wide) in paragraph at lines 270--273
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+Package epstopdf Info: Source file: <plots/quant_err_butter_2nd_10k_1mhz_inl.eps>
+(epstopdf)                    date: 2024-05-13 10:23:56
+(epstopdf)                    size: 285771 bytes
+(epstopdf)             Output file: <plots/quant_err_butter_2nd_10k_1mhz_inl-eps-converted-to.pdf>
+(epstopdf)                    date: 2024-05-13 10:24:55
+(epstopdf)                    size: 100402 bytes
+(epstopdf)             Command: <repstopdf --outfile=plots/quant_err_butter_2nd_10k_1mhz_inl-eps-converted-to.pdf plots/quant_err_butter_2nd_10k_1mhz_inl.eps>
+(epstopdf)             \includegraphics on input line 281.
+Package epstopdf Info: Output file is already uptodate.
+File: plots/quant_err_butter_2nd_10k_1mhz_inl-eps-converted-to.pdf Graphic file (type pdf)
+<use plots/quant_err_butter_2nd_10k_1mhz_inl-eps-converted-to.pdf>
+Package pdftex.def Info: plots/quant_err_butter_2nd_10k_1mhz_inl-eps-converted-to.pdf  used on input line 281.
+(pdftex.def)             Requested size: 252.94266pt x 189.70699pt.
+
+Overfull \hbox (22.4769pt too wide) in paragraph at lines 281--283
+ [][] 
+ []
+
+Package epstopdf Info: Source file: <plots/quant_err_butter_2nd_100k_1mhz_inl.eps>
+(epstopdf)                    date: 2024-05-13 10:30:45
+(epstopdf)                    size: 283424 bytes
+(epstopdf)             Output file: <plots/quant_err_butter_2nd_100k_1mhz_inl-eps-converted-to.pdf>
+(epstopdf)                    date: 2024-05-13 10:38:45
+(epstopdf)                    size: 97760 bytes
+(epstopdf)             Command: <repstopdf --outfile=plots/quant_err_butter_2nd_100k_1mhz_inl-eps-converted-to.pdf plots/quant_err_butter_2nd_100k_1mhz_inl.eps>
+(epstopdf)             \includegraphics on input line 288.
+Package epstopdf Info: Output file is already uptodate.
+<plots/quant_err_butter_2nd_100k_1mhz_inl-eps-converted-to.pdf, id=111, 562.1pt x 421.575pt>
+File: plots/quant_err_butter_2nd_100k_1mhz_inl-eps-converted-to.pdf Graphic file (type pdf)
+<use plots/quant_err_butter_2nd_100k_1mhz_inl-eps-converted-to.pdf>
+Package pdftex.def Info: plots/quant_err_butter_2nd_100k_1mhz_inl-eps-converted-to.pdf  used on input line 288.
+(pdftex.def)             Requested size: 252.94266pt x 189.70699pt.
+
+Overfull \hbox (22.4769pt too wide) in paragraph at lines 288--291
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+Package epstopdf Info: Source file: <plots/quant_err_butter_2nd_10k_10mhz_inl.eps>
+(epstopdf)                    date: 2024-05-13 10:51:19
+(epstopdf)                    size: 301651 bytes
+(epstopdf)             Output file: <plots/quant_err_butter_2nd_10k_10mhz_inl-eps-converted-to.pdf>
+(epstopdf)                    date: 2024-05-13 10:51:25
+(epstopdf)                    size: 105234 bytes
+(epstopdf)             Command: <repstopdf --outfile=plots/quant_err_butter_2nd_10k_10mhz_inl-eps-converted-to.pdf plots/quant_err_butter_2nd_10k_10mhz_inl.eps>
+(epstopdf)             \includegraphics on input line 299.
+Package epstopdf Info: Output file is already uptodate.
+<plots/quant_err_butter_2nd_10k_10mhz_inl-eps-converted-to.pdf, id=112, 562.1pt x 421.575pt>
+File: plots/quant_err_butter_2nd_10k_10mhz_inl-eps-converted-to.pdf Graphic file (type pdf)
+<use plots/quant_err_butter_2nd_10k_10mhz_inl-eps-converted-to.pdf>
+Package pdftex.def Info: plots/quant_err_butter_2nd_10k_10mhz_inl-eps-converted-to.pdf  used on input line 299.
+(pdftex.def)             Requested size: 252.94266pt x 189.70699pt.
+
+Overfull \hbox (22.4769pt too wide) in paragraph at lines 299--301
+ [][] 
+ []
+
+Package epstopdf Info: Source file: <plots/quant_err_butter_2nd_100k_10mhz_inl.eps>
+(epstopdf)                    date: 2024-05-13 10:53:27
+(epstopdf)                    size: 297226 bytes
+(epstopdf)             Output file: <plots/quant_err_butter_2nd_100k_10mhz_inl-eps-converted-to.pdf>
+(epstopdf)                    date: 2024-05-13 10:53:32
+(epstopdf)                    size: 104673 bytes
+(epstopdf)             Command: <repstopdf --outfile=plots/quant_err_butter_2nd_100k_10mhz_inl-eps-converted-to.pdf plots/quant_err_butter_2nd_100k_10mhz_inl.eps>
+(epstopdf)             \includegraphics on input line 306.
+Package epstopdf Info: Output file is already uptodate.
+<plots/quant_err_butter_2nd_100k_10mhz_inl-eps-converted-to.pdf, id=113, 562.1pt x 421.575pt>
+File: plots/quant_err_butter_2nd_100k_10mhz_inl-eps-converted-to.pdf Graphic file (type pdf)
+<use plots/quant_err_butter_2nd_100k_10mhz_inl-eps-converted-to.pdf>
+Package pdftex.def Info: plots/quant_err_butter_2nd_100k_10mhz_inl-eps-converted-to.pdf  used on input line 306.
+(pdftex.def)             Requested size: 252.94266pt x 189.70699pt.
+
+Overfull \hbox (22.4769pt too wide) in paragraph at lines 306--309
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+(./main.bbl [3 <./fig_stf_ntf/ntf_vs_freq-eps-converted-to.pdf> <./fig_stf_ntf/lpf_ntf_vs_freq-eps-converted-to.pdf> <./plots/quant_err_butter_2nd_10k_1mhz_inl-eps-converted-to.pdf> <./plots/quant_err_butter_2nd_100k_1mhz_ideal-eps-converted-to.pdf>]) [4 <./plots/filt_vs_qnoise_10k_fs10mhz_ideal-eps-converted-to.pdf> <./plots/filt_vs_qnoise_100k_fs10mhz_ideal-eps-converted-to.pdf> <./plots/quant_err_butter_2nd_100k_1mhz_inl-eps-converted-to.pdf>] [5 <./plots/quant_err_butter_2nd_10k_10mhz_inl-eps-converted-to.pdf> <./plots/quant_err_butter_2nd_100k_10mhz_inl-eps-converted-to.pdf>] (./main.aux)
 
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: A3DCC5FD9F9B40B07A5BA6D98D4183B6;1559.
+(rerunfilecheck)             Checksum: BD04A1B6B3F97462A77BBED89FCADA7D;1737.
  ) 
 Here is how much of TeX's memory you used:
- 13424 strings out of 478268
- 216300 string characters out of 5846347
- 518205 words of memory out of 5000000
- 31393 multiletter control sequences out of 15000+600000
+ 13450 strings out of 478268
+ 218064 string characters out of 5846347
+ 518204 words of memory out of 5000000
+ 31412 multiletter control sequences out of 15000+600000
  485806 words of font info for 70 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,10n,77p,702b,400s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 67i,10n,77p,702b,489s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb>
-Output written on main.pdf (4 pages, 752593 bytes).
+Output written on main.pdf (5 pages, 1179368 bytes).
 PDF statistics:
- 249 PDF objects out of 1000 (max. 8388607)
- 172 compressed objects within 2 object streams
- 32 named destinations out of 1000 (max. 500000)
- 115 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 261 PDF objects out of 1000 (max. 8388607)
+ 182 compressed objects within 2 object streams
+ 36 named destinations out of 1000 (max. 500000)
+ 138 words of extra memory for PDF output out of 10000 (max. 10000000)
 

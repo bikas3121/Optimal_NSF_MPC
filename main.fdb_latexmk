@@ -1,13 +1,13 @@
 # Fdb version 3
-["bibtex main"] 1718107180 "main.aux" "main.bbl" "main" 1718107284
+["bibtex main"] 1718109523 "main.aux" "main.bbl" "main" 1718109524
   "/usr/local/texlive/2022/texmf-dist/bibtex/bst/base/unsrt.bst" 1292289607 18030 1376b4b231b50c66211e47e42eda2875 ""
-  "main.aux" 1718107284 5037 2c7692bdb922eb0c59fe4a622363e49f "pdflatex"
+  "main.aux" 1718109524 6709 3985aa93dcc09c91f49d2804fd2e52d8 "pdflatex"
   "references_new.bib" 1717663169 10208 ba1b6f42faddd6f3f25bdbd54919390e ""
   (generated)
   "main.bbl"
   "main.blg"
-["pdflatex"] 1718107284 "/Volumes/Work/Reports-MPC/Optimal_NSF_MPC/main.tex" "main.pdf" "main" 1718107284
-  "/Volumes/Work/Reports-MPC/Optimal_NSF_MPC/main.tex" 1718107283 8753 3b2c3565aea3d02c8bd0cf300e64d146 ""
+["pdflatex"] 1718109523 "/Volumes/Work/Reports-MPC/Optimal_NSF_MPC/main.tex" "main.pdf" "main" 1718109524
+  "/Volumes/Work/Reports-MPC/Optimal_NSF_MPC/main.tex" 1718109522 12098 83a192db8eb5a86d9be495bdba6d7903 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/ecbx0500.tfm" 1136768653 3584 0913860e6fa2bdf78ecaf460b391112b ""
@@ -140,15 +140,18 @@
   "fig_stf_ntf/ntf_vs_freq.eps" 1718029469 33555 7372b03b3cebeaf90c1db2c1240097cb ""
   "figures/noise_shaping2.pdf" 1703249357 6180 ecade40a9a837c25ad8cc53823f26999 ""
   "figures/noise_shaping_redrawn.pdf" 1717746631 7891 38a8ab453b0f399e15b520f2f913ca04 ""
-  "main.aux" 1718107284 5037 2c7692bdb922eb0c59fe4a622363e49f "pdflatex"
-  "main.bbl" 1718107180 276 86c32ade2a66b8234db10a462c655171 "bibtex main"
-  "main.out" 1718107284 1559 a3dcc5fd9f9b40b07a5ba6d98d4183b6 "pdflatex"
-  "main.tex" 1718107283 8753 3b2c3565aea3d02c8bd0cf300e64d146 ""
-  "plots/but_lp_ntf_2_10.eps" 1715168203 250034 c234e70dec2b8922cc68fd69a333ad77 ""
-  "plots/but_lp_ntf_2_100_1000.eps" 1715167760 239674 11c7f0c722b7e789a587c015be02172e ""
-  "plots/but_lp_ntf_3_10.eps" 1715168182 244798 52c32872790218602faf52b8db14c687 ""
-  "plots/but_lp_ntf_3_100_1000.eps" 1715167795 239973 1493734a504805b6e0b564391581a8bb ""
+  "main.aux" 1718109524 6709 3985aa93dcc09c91f49d2804fd2e52d8 "pdflatex"
+  "main.bbl" 1718109523 276 86c32ade2a66b8234db10a462c655171 "bibtex main"
+  "main.out" 1718109524 1737 bd04a1b6b3f97462a77bbed89fcada7d "pdflatex"
+  "main.tex" 1718109522 12098 83a192db8eb5a86d9be495bdba6d7903 ""
+  "plots/filt_vs_qnoise_100k_fs10mhz_ideal.eps" 1715006109 312821 7f67bf2382115d271bce949948dd91e7 ""
+  "plots/filt_vs_qnoise_10k_fs10mhz_ideal.eps" 1715005664 312013 4ace9072fed1f29475711ededb5164a2 ""
   "plots/percp.eps" 1714999604 800071 73d80c5f84b9a0413692f4630f88aa97 ""
+  "plots/quant_err_butter_2nd_100k_10mhz_inl.eps" 1715590407 297226 ad8c5d01559a6172bcd4305975cb9bfb ""
+  "plots/quant_err_butter_2nd_100k_1mhz_ideal.eps" 1715592041 285254 507187bd92965eaf8204c5362d114421 ""
+  "plots/quant_err_butter_2nd_100k_1mhz_inl.eps" 1715589045 283424 331420d182fdf19fcb563c71bea517c9 ""
+  "plots/quant_err_butter_2nd_10k_10mhz_inl.eps" 1715590279 301651 8e89f7e1fd7a8feba7f29bd83b028f0b ""
+  "plots/quant_err_butter_2nd_10k_1mhz_inl.eps" 1715588636 285771 1c73a848925b985199c737137831f97a ""
   "plots/stf_ntf_perception_linear.eps" 1717072604 34147 2dce2acd1fa306ac0fe2133b319c0630 ""
   (generated)
   "main.aux"

@@ -58,7 +58,7 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 \begin{document}
 \newpage
 \maketitle
-%\tableofcontents
+\tableofcontents
 
 \section{Quantisation}
 Let $w \in \mathbb{R}$ be the input, $\mathbf{Q}$ be the quantiser and $y \in \mathbb{U}$ the quantiser output. The quantiser output 
@@ -74,7 +74,7 @@ Noise-shaping quantisers can reduce the effective quantisation error by moving q
 frequencies through oversampling and feedback.  The reconstruction filter is then used to attenuate the 
 frequency-shaped quantisation noise. It operates by estimating the uniform quantisation error and employing a 
 feedback filter to shape the noise power at the output of the DAC. A block diagram for a noise-shaping quantiser 
-is shown in Fig. \ref{fig:dsm}. The feedback filter $F(z)$ is designed such that the transfer 
+is shown in Fig. \ref{fig:dsm1}. The feedback filter $F(z)$ is designed such that the transfer 
 function $y = (1 - F(z)) \epsilon$ is a high-pass filter.
 
 \begin{figure}[!h]
@@ -83,14 +83,14 @@ function $y = (1 - F(z)) \epsilon$ is a high-pass filter.
 		\centering
 		\includegraphics[scale = 1.5]{figures/noise_shaping2.pdf}
 		\caption{Noise shaping quantiser}
-		\label{Noise-shaping Quantiser }
+		\label{fig:dsm}
 	\end{minipage}
 	\hfil  
 	\begin{minipage}{0.45\linewidth}
 		\centering
 		\includegraphics[scale = 1.5]{figures/noise_shaping_redrawn.pdf}
 		\caption{Noise shaping quantiser}
-		\label{Noise-shaping Quantiser redrawn }
+		\label{fig:dsm1}
 	\end{minipage}
 \end{figure}
 
@@ -124,27 +124,14 @@ The error $e$  then can be written as the output of the following state-space re
 \end{equation}
 where $x \in \mathbb{R}^{n}$ is the state vector.  The error $e$ corresponds to the difference between the filtered quantised signal and the filtered input signal. 
 
-For moving horison implementation, at time $t=k$ consider the quadratic cost is defined as
-\begin{equation}
-V_{N} = \sum_{t=k}^{k+N-1} e^{2}(t)
-%	V = \sum_{t \in \mathbb{N}}e^{2}(t),
-	\label{eq:costfunction}
-\end{equation}
-where $e(t)$ is the error defined in equation \eqref{eq:error1}.  Then, the optimisation problem can be defined as the problem of finding $y \in \mathbb{U}$ that minimises  the cost function \eqref{eq:costfunction} while satisfying the state equations \eqref{eq:statespace1}, that is,
-\begin{subequations}\label{eq:optproblem2}
-	\begin{align}
-		& y^{\ast}(t) = \arg  \min_{y(t) }	V_{N} \\
-  % = \sum_{t=k}^{k+N-1} e^{2}(t) \\
+For moving horison implementation, the optimisation problem is defined as the problem of finding $y \in \mathbb{U}$ that minimises  the cost function  while satisfying the state equations as follows:
+\begin{align}
+		& y^{\ast}(t) = \arg  \min_{y(t) }	V_{N}  = \sum_{t=k}^{k+N-1} e^{2}(t) \\
 		\intertext{subject to}
 		&x(t+1) = A x(t) + B (y(t)-w(t))		\\
 		&e(t) = Cx(t) + y(t)-w(t)		\\
 		&y(t) \in \mathbb{U}.
 	\end{align}
-\end{subequations}
-
-\section{MHOQ and Noise-shaping Quantiser}
-The moving horizon quantiser (MHOQ) with prediction horizon $N = 1$ is equivalent to the noise shaping quantiser.  By choosing low-pass filter $$H(z)  = \frac{1 }{ 1- F(z)},$$  the MHOQ conicides with the noise shaping quantiser.
-
 
 \section{Frequency response: LPF and NTF}
 \subsection{Perception filter}
@@ -233,46 +220,46 @@ The frequency response of the noise transfer functions due to butterworth filter
 	\end{minipage}
 \end{figure}
 
-\section{Optimal Noise shaping filter}
-Can we design a optimal noise shaping filter for the frequency bandwith of our interest such that we get resonable ENOB using MPC? For now with $F_{s} = 1 \textrm{MHz}$ and $F_{c} = 100 \textrm{kHz}$ we are not getting improvement in the performance without increasing the sampling frequency. In the following figures, we plot the frequency response of the LPF and the spectrum of the quantisation error. 
 
+% \begin{figure}[!h]
+% 	\centering
+% 	\begin{minipage}{0.45\linewidth}
+% 		\centering
+% 		\includegraphics[scale = 0.45]{plots/quant_err_butter_2nd_10k_1mhz_inl.eps}
+% 		\caption{Butterworth Frequency response and frequency spectrum of quantisation noise:  
+% 				\\ \textbf{Fc} = 10 kHz, \textbf{Fs} = 1 MHz, \textbf{ENOB} = 18.47, \textbf{Uniform}}
+% 	\end{minipage}
+% 	\hfil
+% 	\begin{minipage}{0.45\linewidth}
+% 		\centering
+% 		\includegraphics[scale = 0.45]{plots/quant_err_butter_2nd_100k_1mhz_ideal.eps}
+% 		\textbf{\caption{Butterworth Frequency response  and frequency spectrum of quantisation noise:  
+% 					\\ \textbf{Fc} = 100 kHz, \textbf{Fs} = 1 MHz, \textbf{ENOB} = 9.09, \textbf{Uniform}
+% 				}}
+% 	\end{minipage}
+% \end{figure}
 
-\begin{figure}[!h]
-	\centering
-	\begin{minipage}{0.45\linewidth}
-		\centering
-		\includegraphics[scale = 0.45]{plots/quant_err_butter_2nd_10k_1mhz_inl.eps}
-		\caption{Butterworth Frequency response and frequency spectrum of quantisation noise:  
-				\\ \textbf{Fc} = 10 kHz, \textbf{Fs} = 1 MHz, \textbf{ENOB} = 18.47, \textbf{Uniform}}
-	\end{minipage}
-	\hfil
-	\begin{minipage}{0.45\linewidth}
-		\centering
-		\includegraphics[scale = 0.45]{plots/quant_err_butter_2nd_100k_1mhz_ideal.eps}
-		\textbf{\caption{Butterworth Frequency response  and frequency spectrum of quantisation noise:  
-					\\ \textbf{Fc} = 100 kHz, \textbf{Fs} = 1 MHz, \textbf{ENOB} = 9.09, \textbf{Uniform}
-				}}
-	\end{minipage}
-\end{figure}
-
-\begin{figure}[!h]
-	\centering
-	\begin{minipage}{0.45\linewidth}
-		\centering
-		\includegraphics[scale = 0.45]{plots/filt_vs_qnoise_10k_fs10mhz_ideal.eps}
-		\caption{Butterworth Frequency response and frequency spectrum of quantisation noise:  
-				\\ \textbf{Fc} = 10 kHz, \textbf{Fs} = 10 MHz, \textbf{ENOB} = 26.2, \textbf{Uniform}
-}
-	\end{minipage}
-	\hfil
-	\begin{minipage}{0.45\linewidth}
-		\centering
-		\includegraphics[scale = 0.45]{plots/filt_vs_qnoise_100k_fs10mhz_ideal.eps}
-		\textbf{\caption{Butterworth Frequency response  and frequency spectrum of quantisation noise: 
-					\\ \textbf{Fc} = 100 kHz, \textbf{Fs} = 10 MHz, \textbf{ENOB} = 17.31, \textbf{Unifrom}
-}}
-	\end{minipage}
-\end{figure}
+% \begin{figure}[!h]
+% 	\centering
+% 	\begin{minipage}{0.45\linewidth}
+% 		\centering
+% 		\includegraphics[scale = 0.45]{plots/filt_vs_qnoise_10k_fs10mhz_ideal.eps}
+% 		\caption{Butterworth Frequency response and frequency spectrum of quantisation noise:  
+% 				\\ \textbf{Fc} = 10 kHz, \textbf{Fs} = 10 MHz, \textbf{ENOB} = 26.2, \textbf{Uniform}
+% }
+% 	\end{minipage}
+% 	\hfil
+% 	\begin{minipage}{0.45\linewidth}
+% 		\centering
+% 		\includegraphics[scale = 0.45]{plots/filt_vs_qnoise_100k_fs10mhz_ideal.eps}
+% 		\textbf{\caption{Butterworth Frequency response  and frequency spectrum of quantisation noise: 
+% 					\\ \textbf{Fc} = 100 kHz, \textbf{Fs} = 10 MHz, \textbf{ENOB} = 17.31, \textbf{Unifrom}
+% }}
+% 	\end{minipage}
+% \end{figure}
+\newpage
+\section{Spectrum of quantisation noise}
+The sampling frequency effects the spectrum of the quantisation noise and consequently the ENOB as shown in the following figures. 
 
 \begin{figure}[!h]
 	\centering
@@ -310,10 +297,57 @@ Can we design a optimal noise shaping filter for the frequency bandwith of our i
 	\end{minipage}
 \end{figure}
 
+\newpage
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale = 2]{figures/nsq_error_feedback.pdf}
+	\caption{Noise shaping quantiser and a system $H(z)$.}
+	\label{fig:nsq_efs}
+\end{figure}
 \section{Synthesis of optimal noise-shaping filter}
+In noise shaping quantiser with error-feedback structure as shown in the Figure \ref{fig:nsq_efs}, the input to the quantiser is  $v = w + \eta = w + (R(z)-1)\epsilon$
+and  feedback error $\epsilon$ is 
+\begin{equation}
+	\epsilon = y - v = y - w - (R(z)-1)\epsilon.
+\end{equation}
+Then quantisaion noise defined as $q := y - w$ can be expressed as 
+\begin{equation}
+	 q = y - w = R(z) \epsilon.
+\end{equation}
+Then the effect of the quantisation error on the system $H(z)$ can be expressed as 
+\begin{equation}	
+	 e = H(z) R(z) \epsilon.
+	 \label{eq:err_plant}
+\end{equation}
+and it shows that we can reduce the error in the plant output by properly designing the noise shaping filter $R(z)$ with the knowledge of the plant $H(z)$. 
 
+The objective is to design stable noise-shaping filter such that it minimises the effect of the quantisation noise in the plant output. A constraint on the error feedback signal should be imposed to prevent the quantiser from overloading and achieve a stable noise-shaping quantiser as $$ \eta = (R(z) - 1) \epsilon.$$
 
+\begin{itemize}
+	\item \textbf{Design Problem:} For a fixed pair (p,q) \cite{Shuichi2017}, 
+	\begin{equation}
+		\begin{aligned}
+			&\min_{R(z) \in \mathbb{RH}_{\infty}} \| e \|_{p}  \\
+			\textrm{subject  to.}& \\
+			& R(\infty)	 = 1, \\
+			& \|\eta\|_{q} < \gamma_{\eta}
+		\end{aligned}	
+	\end{equation}	
+	where $\mathbb{RH}_{\infty} = \mathbb{R} \cap \mathbb{H}_{\infty}$ is the set of proper stable rational transfer functions.
+\end{itemize}
 
+\subsection{Solution 1: Optimal noise shaping filter without constraint}
+The optimal noise shaping filter without constraint on the error feedback signal $\eta$ is the scaled inverse of the system $H(z)$.   If the quantisation error is assumed to be an i.i.d random variable with zero mean, then the variance of the error $e$ at time $k$  can be expressed as 
+\begin{equation}
+	E\{|e_{k}|^2\} = \|H(z) R(z) \|_{2}^{2} \sigma_{\epsilon}^{2}
+\end{equation}
+where $E\{.\}$ is the expectation operator and $\sigma_{\epsilon}$ is variance of the $\epsilon$ and $\|H(z) R(z) \|_{2}^{2}$  is the $\mathbb{H}_{2}$-norm.
+
+It is shown in \cite{oppenheim99}, any casual and stable rational sytem function $H(z)$ can always be stated as the product of the minimum phase system $H_{min}(z)$ and all pass system $H_{ap}(z)$. Then it is shown that the optimal noise shaping filter is given by the scaled inverse of the plant, as follows, 
+\begin{equation}
+	R(z) = h_{D} H_{min}^{-1}(z)
+\end{equation}
+where $h_{D}$ is the first non-zero entry of the impulse response of the plant $H_{z}$.
 %\section{References}
 %\label{sec:org89add8d}
 \bibliographystyle{unsrt}

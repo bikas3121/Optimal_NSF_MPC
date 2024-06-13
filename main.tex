@@ -298,18 +298,20 @@ The sampling frequency effects the spectrum of the quantisation noise and conseq
 \end{figure}
 
 \newpage
+\section{Synthesis of optimal noise-shaping filter}
+
 \begin{figure}[!h]
 	\centering
 	\includegraphics[scale = 2]{figures/nsq_error_feedback.pdf}
 	\caption{Noise shaping quantiser and a system $H(z)$.}
 	\label{fig:nsq_efs}
 \end{figure}
-\section{Synthesis of optimal noise-shaping filter}
 In noise shaping quantiser with error-feedback structure as shown in the Figure \ref{fig:nsq_efs}, the input to the quantiser is  $v = w + \eta = w + (R(z)-1)\epsilon$
 and  feedback error $\epsilon$ is 
 \begin{equation}
 	\epsilon = y - v = y - w - (R(z)-1)\epsilon.
 \end{equation}
+
 Then quantisaion noise defined as $q := y - w$ can be expressed as 
 \begin{equation}
 	 q = y - w = R(z) \epsilon.
@@ -348,6 +350,115 @@ It is shown in \cite{oppenheim99}, any casual and stable rational sytem function
 	R(z) = h_{D} H_{min}^{-1}(z)
 \end{equation}
 where $h_{D}$ is the first non-zero entry of the impulse response of the plant $H_{z}$.
+
+\subsection{Solution 2: Optimal noise shaping filter with constraint}
+The optimization problem is setup as the minimization of the upper bound of the $\|e\|_{p}$ and $\|\eta_{q}$ as follows:
+\begin{align}
+	\min_{R(z) \in \mathbb{RH}_{\infty}}\gamma_{e} \\
+	\intertext{subject to $R(\infty) = 1$ and}
+	\|H(z)R(z)\|_{ind.p} < \gamma_{e} \\
+	\|R(z) - 1\|_{ind.q}< \gamma_{\eta}
+\end{align}
+where $\|.\|_{ind.r}$ is the induced norm and $\gamma_{e}$ and $\gamma_{\eta}$ are the upper bound of $\|H(z)R(z)\|_{ind.p}$ and $\|R(z) - 1\|_{ind.q}$ , respectively.
+
+\subsubsection*{State space representation}
+
+
+\subsubsection{System}
+Denoting the state-space representation of the $H(z)$ and $R(z)$ as $(A_{h}, B_{h}, C_{h}, D_{h})$ and $(A_{r}, B_{r}, C_{r}, 1)$ respectively, the state space realization of $H(z)R(z)$ is 
+\begin{align}
+	x_{k+1} &= Ax_{k} + B \epsilon_{k} \\
+	e_{k} &= Cx_{k} + D\epsilon_{k}
+\end{align}
+where 
+\begin{align}
+	A = \begin{bmatrix}
+		A_{h} & B_{h}C_{r}\\
+		\mathbf{0} & A_{r}
+	\end{bmatrix}
+	\qquad
+	B = \begin{bmatrix}
+		B_{h} \\
+		B_{r}
+	\end{bmatrix}
+	\qquad
+	C = \begin{bmatrix}
+		C_{h} & D_{h} C_{r}
+	\end{bmatrix}
+	\qquad
+	D = D_{h}.
+\end{align}
+Similary, the variance of the error $e$ under the white noise assumption at time $k$ in state-space form is given by $\mathbb{H}_{2}$-norm  as
+\begin{equation}
+	\|H(z)R(z)\|_{2}^{2} = \sum_{k = 0}^{\infty} \|C A^{k}B\|_{2}^{2} + DD^{\top}.
+\end{equation}
+Moreover, if $A$ is Schur matrix, then there exists a positive semi-definite solution $P$ of the discrete Lyapunov equation defined as 
+\begin{equation}
+	P = A^{\top} P A + B B^{\top}
+\end{equation}
+and the squared $\mathbb{H}_{2}$ norm is given by
+\begin{equation}
+		\|H(z)R(z)\|_{2}^{2} = C P C^{\top} + D D^{\top}.
+\end{equation}
+\subsubsection{Constraint 1}
+Then $\|H(z) R(z)\|_{2} < \gamma_{e}$ if and only if there exist a positive definite matrix $P$ such that 
+\begin{align}
+	 \mathbf{(BMI)} \qquad &\begin{bmatrix}
+		P & PA & PB \\
+		A^{\top} & P & \mathbf{0} \\
+		B^{\top} & \mathbf{0} & 1
+	\end{bmatrix} \succ 0 \\
+	\mathbf{(LMI)} \qquad &\begin{bmatrix}
+		\mu_{e} & C & D \\
+		C^{\top} & P & \mathbf{0} \\
+		D^{\top} & \mathbf{0} & 1
+	\end{bmatrix} \succ 0 \\
+&\mu_{e} = \gamma_{e}^{2}.
+\end{align}
+
+\subsubsection{Constraint 2}
+ The variance of the noise shaping filter is given by
+ \begin{equation}
+	E\{|\eta_{k}|^{2}\} = \|R(z)-1 \|_{2}^{2} = \sum_{k = 1}^{\infty} \|\tilde{C} A^{k} B\|_{2}^{2},
+ \end{equation}
+ where  $\tilde{C} = \begin{bmatrix}
+	\mathbf{0} & C_r
+ \end{bmatrix}$. Then $\|R(z)-1 \|_{2}^{2} < \gamma_{\eta}$ if and only if there exist a  positive definite matrix $P$ that satisfies
+\begin{align}
+	 \mathbf{(BMI)} \qquad &\begin{bmatrix}
+		P & PA & PB \\
+		A^{\top} & P & \mathbf{0} \\
+		B^{\top} & \mathbf{0} & 1
+	\end{bmatrix} \succ 0 \\
+	\mathbf{(LMI)} \qquad &\begin{bmatrix}
+		\mu_{\eta} & \tilde{C} \\
+		\tilde{C}^{\top} & P 
+	\end{bmatrix} \succ 0 \\
+&\mu_{\eta} = \gamma_{\eta}^{2}.
+\end{align}
+
+\subsubsection{Optimization problem: State Space formulation}
+BMIs are not convex and NP hard to solve, but they can be converted to convex LMIs  and can be solved numerically. The LMIs are convex. Thus the optimization problem can be written as follows, 
+\begin{align}	
+	\min_{R(z) \in \mathbb{RH}_{\infty}}\gamma_{e} \\
+	\intertext{subject to $R(\infty) = 1$ and}
+	 &\begin{bmatrix}
+		P & PA & PB \\
+		A^{\top} & P & \mathbf{0} \\
+		B^{\top} & \mathbf{0} & 1
+	\end{bmatrix} \succ 0 \\
+	\qquad &\begin{bmatrix}
+		\mu_{e} & C & D \\
+		C^{\top} & P & \mathbf{0} \\
+		D^{\top} & \mathbf{0} & 1
+	\end{bmatrix} \succ 0 \\	
+	&\begin{bmatrix}
+		\mu_{\eta} & \tilde{C} \\
+		\tilde{C}^{\top} & P 
+	\end{bmatrix} \succ 0 \\
+&\mu_{e} = \gamma_{e}^{2} , \mu_{\eta} = \gamma_{\eta}^{2}.
+\end{align}
+\newpage
 %\section{References}
 %\label{sec:org89add8d}
 \bibliographystyle{unsrt}

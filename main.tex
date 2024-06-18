@@ -547,15 +547,40 @@ with $M_{\tilde{C}} := \tilde{C}U$. The LMI conditions  \ref{eq:bmi21}, \ref{eq:
 \section{Simulations}
 The butterworth lowpass filter for different cutoff frequency is as the plant in the error feedback quantisation. 
 \subsection*{Butterworth LPF:}
-First let us consider a second order butterworth low pass filter with $F_c = 100 \mathit{kHz}$  and $F_s = 1 \mathit{Mhz}$. Let us denote the low pass filter as $H(z)$ then let $F_{opt}(z)$ as the optimal noise transfer function and $F_{mpc}(z)$ as the noise transfer function due to MPC setting. Recall that 
+First let us consider a second order butterworth low pass filter with $F_c = 100 \mathit{kHz}$  and $F_s = 1 \mathit{Mhz}$. Let us denote the low pass filter as $H(z)$ then let $F_{opt}(z)$ as the optimal noise transfer function and $F_{mpc}(z)$ as the noise transfer function due to MPC setting. Let us represent the numberator and denominator of noise transfer function $R(z)$ as $b_{r}$ and $a_{r}$, respectively, i.e., 
+\begin{align}
+	R(z) = \frac{b_{r}}{a_{r}}.
+\end{align}
+Then the corresponding noise shaping filter (NSF) as shown in the Figure~\ref{fig:nsq_efs}  is 
+\begin{align}	
+F(z)  = 1- R(z)= \frac{a_{r}- b_{r}}{a_{r}}.
+\end{align}
+Following the analogy of MPC formualation the obtained low pass filter due the high- noise shaping filter is 
 \begin{equation}
-	F_{mpc}(z) = \frac{1}{H}.
+	H_{mpc}(z) = \frac{a_{r}}{b_{r}}.
 \end{equation}  
+% \begin{figure}[!h]
+% 	\centering
+% 	\includegraphics[scale = 1]{mat_plots/butter_2_100khz_1Mhz.eps}	
+% 	\caption{Frequency response: Butterworth filter with $n = 3$ and $F_{c} = 100\mathit{kHz}$}
+% \end{figure}
+
+
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale = 1]{mat_plots/butter_2_100khz_1Mhz.eps}	
-	\caption{Frequency response: Butterworth filter with $n = 2$ and $F_{c} = 100\mathit{kHz}$}
+	\begin{minipage}{0.45\linewidth}
+		\centering
+		\includegraphics[scale = 0.45]{mat_plots/butter_3_100khz_1Mhz_1.eps}
+		\caption{Frequency response: Butterworth filter with $n = 3$ and $F_{c} = 100\mathit{kHz}$ and corresponding optimal noise shaping filter and low pass filter}
+	\end{minipage}
+	\hfil
+	\begin{minipage}{0.45\linewidth}
+		\centering
+		\includegraphics[scale = 0.45]{mat_plots/butter_3_100khz_1Mhz_2.eps}
+		\caption{Frequency response: Optimal noise shaping filter and corresponding low pass filter}
+	\end{minipage}
 \end{figure}
+
 \newpage
 %\section{References}
 %\label{sec:org89add8d}

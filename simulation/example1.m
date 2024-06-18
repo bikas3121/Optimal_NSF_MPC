@@ -6,7 +6,7 @@ close all
 Fs = 1e6;
 Fc = 1e5;
 Wn = Fc/(Fs/2);
-n = 2;
+n = 3;
 [b,a] = butter(n, Wn,"low");
 [Ah, Bh, Ch, Dh] = tf2ss(b,a);
 
@@ -67,10 +67,19 @@ MP1 = U'*P*U;
 
 %%
 [bf, af] = ss2tf(Af, Bf, Cf, Df);
+
+% NTF is R(z) -1 thus
+NSF = tf(bf-af,af);
+[A_nsf, B_nsf, C_nsf, D_nsf] = tf2ss(bf-af,af);
+
+
+
+%% Plots
 N = Fs/2;
 
 [hf,wf] = freqz(bf,af, N, 'half', Fs);
 [hlp,wlp] = freqz(b,a, N, 'half', Fs);
+[hlp1,wlp1] = freqz(af,bf, N, 'half', Fs);
 %NTF derived directly from butterworth filter
 [hf1,wf1] = freqz(a,b, N, 'half', Fs);
 
@@ -88,5 +97,15 @@ grid minor
 xlabel('Frequency (kHz)')
 ylabel("Magnitude (dB)")
 
+figure
+plot(wf(1:sl)/2*pi*1e-3, 20*log10(abs(hf(1:sl))));
+hold on 
+plot(wlp1(1:sl)/2*pi*1e-3, 20*log10(abs(hlp1(1:sl))));
+
+
+legend("F_{opt}(z)","H_{MPC}(z)", intrepretor = 'latex')
+grid minor
+xlabel('Frequency (kHz)')
+ylabel("Magnitude (dB)")
 
 

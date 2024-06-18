@@ -303,7 +303,7 @@ The sampling frequency effects the spectrum of the quantisation noise and conseq
 \begin{figure}[!h]
 	\centering
 	\includegraphics[scale = 2]{figures/nsq_error_feedback.pdf}
-	\caption{Noise shaping quantiser and a system $H(z)$.}
+	\caption{Noise shaping quantiser and a filter $H(z)$.}
 	\label{fig:nsq_efs}
 \end{figure}
 In noise shaping quantiser with error-feedback structure as shown in the Figure \ref{fig:nsq_efs}, the input to the quantiser is  $v = w + \eta = w + (R(z)-1)\epsilon$
@@ -473,7 +473,7 @@ Let the order of $H(z)$ is $n$ and the set of $n \times n$ positive define matri
 			B_{h} \\ W_{g}
 		\end{bmatrix} \\
 		M_{C} &:= \begin{bmatrix}
-			C_{h}S_{f} + D_{h}S_{f}
+			C_{h}P_{f} + D_{h}W_{f} & C_{h}
 		\end{bmatrix} \\
 		M_{P} &:= \begin{bmatrix}
 			P_{f} & I_{n} \\
@@ -502,7 +502,7 @@ If the matrices $(A_{r}, B_{r}, C_{r})$ are given by
 \begin{equation}
 	\begin{aligned}
 		A_{r} &:= \begin{bmatrix}
-			B_{h} P_{f} - P_{g}^{-1}(L - P_g A_h P_f)
+			B_{h} W_{f} - P_{g}^{-1}(L - P_g A_h P_f)
 		\end{bmatrix} S_{f}^{-1} \\
 		B_{r} &:= \begin{bmatrix}
 			B_{h} - P_g^{-1}W_{g}
@@ -543,6 +543,19 @@ and finally the constraint \ref{eq:lmi2} using the transformation is
 	\end{bmatrix} \succ 0 \label{eq:lmi23}
 \end{equation}
 with $M_{\tilde{C}} := \tilde{C}U$. The LMI conditions  \ref{eq:bmi21}, \ref{eq:lmi22} and \ref{eq:lmi23} are convex and the minimization of $\gamma_{e}$ with these constraints is a convex optimization problem. 
+
+\section{Simulations}
+The butterworth lowpass filter for different cutoff frequency is as the plant in the error feedback quantisation. 
+\subsection*{Butterworth LPF:}
+First let us consider a second order butterworth low pass filter with $F_c = 100 \mathit{kHz}$  and $F_s = 1 \mathit{Mhz}$. Let us denote the low pass filter as $H(z)$ then let $F_{opt}(z)$ as the optimal noise transfer function and $F_{mpc}(z)$ as the noise transfer function due to MPC setting. Recall that 
+\begin{equation}
+	F_{mpc}(z) = \frac{1}{H}.
+\end{equation}  
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale = 1]{mat_plots/butter_2_100khz_1Mhz.eps}	
+	\caption{Frequency response: Butterworth filter with $n = 2$ and $F_{c} = 100\mathit{kHz}$}
+\end{figure}
 \newpage
 %\section{References}
 %\label{sec:org89add8d}

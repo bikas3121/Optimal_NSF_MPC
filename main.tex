@@ -438,7 +438,7 @@ Then $\|H(z) R(z)\|_{2} < \gamma_{e}$ if and only if there exist a positive defi
 \end{align}
 
 \subsubsection{Optimization problem: State Space formulation}
-BMIs are not convex and NP hard to solve, but they can be converted to convex LMIs  and can be solved numerically whereas the LMIs are convex. Thus the optimization problem can be written as follows, 
+Thus the optimization problem can be written as follows, 
 \begin{align}	
 	\min_{R(z) \in \mathbb{RH}_{\infty}}\gamma_{e} \\
 	\intertext{subject to $R(\infty) = 1$ and}
@@ -446,18 +446,103 @@ BMIs are not convex and NP hard to solve, but they can be converted to convex LM
 		P & PA & PB \\
 		A^{\top} & P & \mathbf{0} \\
 		B^{\top} & \mathbf{0} & 1
-	\end{bmatrix} \succ 0 \\
+	\end{bmatrix} \succ 0  \label{eq:bmi1}\\
 	\qquad &\begin{bmatrix}
 		\mu_{e} & C & D \\
 		C^{\top} & P & \mathbf{0} \\
 		D^{\top} & \mathbf{0} & 1
-	\end{bmatrix} \succ 0 \\	
+	\end{bmatrix} \succ 0 \label{eq:lmi1}\\	
 	&\begin{bmatrix}
 		\mu_{\eta} & \tilde{C} \\
 		\tilde{C}^{\top} & P 
-	\end{bmatrix} \succ 0 \\
-&\mu_{e} = \gamma_{e}^{2} , \mu_{\eta} = \gamma_{\eta}^{2}.
+	\end{bmatrix} \succ 0 \label{eq:lmi2}\\
+&\mu_{e} = \gamma_{e}^{2} , \mu_{\eta} = \gamma_{\eta}^{2}. \label{eq:lmi3}
 \end{align}
+
+\section{LMI Synthesis: Convert BMIs to convex LMIs}
+BMIs are not convex and NP hard to solve, but they can be converted to convex LMIs  and can be solved numerically whereas the LMIs are convex. The non-convex BMIs can be converted to convex LMIs using change of variables \cite{Izumi1998}. 
+\subsection*{Change of Variables:}
+Let the order of $H(z)$ is $n$ and the set of $n \times n$ positive define matrices is denoted as $\textrm{PD}(n)$. Denote by $\mathcal{P}$ the set of variables $\mathbf{p} = \{P_{f}, P_{g}, W_{f}, W_{g}, W_{h}, L\}$ where $P_{f} \in \textrm{PD}(n)$,  $P_{g} \in \textrm{PD}(n)$, $W_{f} \in \mathbb{R}^{1 \times n}$,  $W_{g} \in \mathbb{R}^{n \times 1}$, $W_{h} \in \mathbb{R}$ and $L \in \mathbb{R}^{n \times n}$. Then define the following matrix values function on $\mathcal{P}$:
+\begin{equation}
+	\begin{aligned}
+		M_{A}&:= \begin{bmatrix}
+			A_{h} P_{f} + B_{h} W_{f} & A_{h} \\
+			L & P_{g} A_{h}
+		\end{bmatrix} \\
+		M_{B} &:= \begin{bmatrix}
+			B_{h} \\ W_{g}
+		\end{bmatrix} \\
+		M_{C} &:= \begin{bmatrix}
+			C_{h}S_{f} + D_{h}S_{f}
+		\end{bmatrix} \\
+		M_{P} &:= \begin{bmatrix}
+			P_{f} & I_{n} \\
+			I_{n} & P_{g}
+		\end{bmatrix}.
+	\end{aligned}	
+\end{equation}
+Next, define 
+\begin{align}
+	{P}^{-1} &:= \begin{bmatrix}
+		P_{f} & S_{f} \\
+		S_{f} & S_{f}
+	\end{bmatrix} ,
+	\qquad
+	U := \begin{bmatrix}
+		P_f & I_{n} \\
+		S_{f} & \mathbf{0}
+	\end{bmatrix} \qquad \textrm{and} \\
+	S_{f} &:= P_{f} - P_{g}^{-1} ( \succ 0)
+\end{align}
+then we have, 
+\begin{equation}
+	M_{P} = U^{\top} {P} U.
+\end{equation}
+If the matrices $(A_{r}, B_{r}, C_{r})$ are given by 
+\begin{equation}
+	\begin{aligned}
+		A_{r} &:= \begin{bmatrix}
+			B_{h} P_{f} - P_{g}^{-1}(L - P_g A_h P_f)
+		\end{bmatrix} S_{f}^{-1} \\
+		B_{r} &:= \begin{bmatrix}
+			B_{h} - P_g^{-1}W_{g}
+		\end{bmatrix}\\
+		C_{r} &:= W_{f}S_{f}^{-1}
+	\end{aligned}
+\end{equation}
+then $(A, B, C)$ satisfy, 
+\begin{align}
+	M_{A} &= U^{\top}P A U \\
+	M_{B} &= U^{\top}P B\\
+	M_{C} &=  C U \\
+	M_{p} &= U^{\top}PU.
+\end{align}
+Multiplying with the transformation $\phi = \textrm{diag}(U, U, 1)$ form the RHS and $\phi^{\top}$  from the LHS the BMI condition \ref{eq:bmi1} takes the following form:
+\begin{equation}
+	\begin{bmatrix}
+		M_{P} & M_{A} & M_{B}\\
+		M_{A}^{\top} & M_{P} & \mathbf{0} \\
+		M_{B}^{\top} & \mathbf{0} & \mathbf{I}
+	\end{bmatrix} \succ 0.
+	\label{eq:bmi21}
+\end{equation}
+Similarly, using the transformation $\textrm{diag}(1, U, 1)$, the LMI condition \ref{eq:lmi1} is 
+\begin{equation}
+	\begin{bmatrix}	
+	\mu_{e} & M_{C} & D^{\top} \\
+	M_{C}^{\top} & M_{P} & \mathbf{0} \\
+	D & \mathbf{0} & \mathbf{I}
+	\end{bmatrix} \succ 0
+	\label{eq:lmi22}
+\end{equation}
+and finally the constraint \ref{eq:lmi2} using the transformation is 
+\begin{equation}
+	\begin{bmatrix}
+		\gamma_{\eta}^{2} & M_{\tilde{C}} \\
+		M_{\tilde{C}}^{\top} & M_{P}
+	\end{bmatrix} \succ 0 \label{eq:lmi23}
+\end{equation}
+with $M_{\tilde{C}} := \tilde{C}U$. The LMI conditions  \ref{eq:bmi21}, \ref{eq:lmi22} and \ref{eq:lmi23} are convex and the minimization of $\gamma_{e}$ with these constraints is a convex optimization problem. 
 \newpage
 %\section{References}
 %\label{sec:org89add8d}

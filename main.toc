@@ -4,12 +4,13 @@
 \contentsline {section}{\numberline {3}Moving horizon optimal quantiser (MHOQ)}{2}{section.3}%
 \contentsline {section}{\numberline {4}Frequency response: LPF and NTF}{2}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Perception filter}{2}{subsection.4.1}%
-\contentsline {section}{\numberline {5}Noise Transfer Function(NTF)}{3}{section.5}%
-\contentsline {section}{\numberline {6}Spectrum of quantisation noise}{4}{section.6}%
-\contentsline {section}{\numberline {7}Synthesis of optimal noise-shaping filter}{5}{section.7}%
+\contentsline {section}{\numberline {5}Noise Transfer Function(NTF)}{2}{section.5}%
+\contentsline {section}{\numberline {6}Spectrum of quantisation noise}{3}{section.6}%
+\contentsline {section}{\numberline {7}Synthesis of optimal noise-shaping filter}{4}{section.7}%
 \contentsline {subsection}{\numberline {7.1}Solution 1: Optimal noise shaping filter without constraint}{5}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Solution 2: Optimal noise shaping filter with constraint}{6}{subsection.7.2}%
-\contentsline {subsubsection}{\numberline {7.2.1}System}{6}{subsubsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2}Solution 2: Optimal noise shaping filter with constraint}{5}{subsection.7.2}%
+\contentsline {subsubsection}{\numberline {7.2.1}System}{5}{subsubsection.7.2.1}%
 \contentsline {subsubsection}{\numberline {7.2.2}Constraint 1}{6}{subsubsection.7.2.2}%
 \contentsline {subsubsection}{\numberline {7.2.3}Constraint 2}{6}{subsubsection.7.2.3}%
-\contentsline {subsubsection}{\numberline {7.2.4}Optimization problem: State Space formulation}{7}{subsubsection.7.2.4}%
+\contentsline {subsubsection}{\numberline {7.2.4}Optimization problem: State Space formulation}{6}{subsubsection.7.2.4}%
+\contentsline {section}{\numberline {8}LMI Synthesis: Convert BMIs to convex LMIs}{7}{section.8}%

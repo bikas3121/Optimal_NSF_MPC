@@ -17,4 +17,10 @@ Alan~V. Oppenheim, Ronald~W. Schafer, and John~R. Buck.
 \newblock {\em Discrete-Time Signal Processing}.
 \newblock Prentice-hall Englewood Cliffs, second edition, 1999.
 
+\bibitem{Izumi1998}
+Izumi Masubuchi, Atsumi Ohara, and Nobuhide Suda.
+\newblock Lmi-based controller synthesis: A unified formulation and solution.
+\newblock {\em International Journal of Robust and Nonlinear Control},
+  8(8):669--686, 1998.
+
 \end{thebibliography}

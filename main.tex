@@ -542,7 +542,29 @@ and finally the constraint \ref{eq:lmi2} using the transformation is
 		M_{\tilde{C}}^{\top} & M_{P}
 	\end{bmatrix} \succ 0 \label{eq:lmi23}
 \end{equation}
-with $M_{\tilde{C}} := \tilde{C}U$. The LMI conditions  \ref{eq:bmi21}, \ref{eq:lmi22} and \ref{eq:lmi23} are convex and the minimization of $\gamma_{e}$ with these constraints is a convex optimization problem. 
+with $M_{\tilde{C}} := \tilde{C}U$. The LMI conditions  \ref{eq:bmi21}, \ref{eq:lmi22} and \ref{eq:lmi23} are convex and the minimization of $\gamma_{e}$ with these constraints is a convex optimization problem.
+
+\subsection{Optimization Problem:}
+With the change of the variable the BMI is converted to the LMI and the since all the LMIs are convex the optimization problem is a convex optimization problem. Also, since the objective is linear and the constraints are LMIs and linearity constraints, the optimization problem is SemiDefinite Program (SDP). Such SDP can be solved numerically using CVX. The optimization problem takes the following form, 
+\begin{align}
+	&\min \mu_{e} = \gamma_{e}^{2} \\
+	\intertext{subject to,} 	
+	&\begin{bmatrix}
+		M_{P} & M_{A} & M_{B}\\
+		M_{A}^{\top} & M_{P} & \mathbf{0} \\
+		M_{B}^{\top} & \mathbf{0} & \mathbf{I}
+	\end{bmatrix} \succ 0 \label{eq:sdpcons1} \\
+	&\begin{bmatrix}	
+	\mu_{e} & M_{C} & D^{\top} \\
+	M_{C}^{\top} & M_{P} & \mathbf{0} \\
+	D & \mathbf{0} & \mathbf{I}
+	\end{bmatrix} \succ 0 . \label{eq:sdpcons2} \\
+	&\begin{bmatrix}
+		\mu_{\eta} & M_{\tilde{C}} \\
+		M_{\tilde{C}}^{\top} & M_{P}
+	\end{bmatrix} \succ 0 \label{eq:sdpcons3}
+\end{align}
+where $\mu_{e}$ is the variance of the output error  and $\mu_{\eta} $ the variance of the feedback error. 
 
 \section{Simulations}
 The butterworth lowpass filter for different cutoff frequency is as the plant in the error feedback quantisation. 
@@ -557,7 +579,7 @@ F(z)  = 1- R(z)= \frac{a_{r}- b_{r}}{a_{r}}.
 \end{align}
 Following the analogy of MPC formualation the obtained low pass filter due the high- noise shaping filter is 
 \begin{equation}
-	H_{mpc}(z) = \frac{a_{r}}{b_{r}}.
+	H_{mpc}(z) = \frac{1}{1-F(z)} =  \frac{a_{r}}{b_{r}}.
 \end{equation}  
 % \begin{figure}[!h]
 % 	\centering

@@ -9,7 +9,7 @@ Fs = 1e6;
 Fc = 1e5;           % cutoff frequency
 Wn = Fc/(Fs/2);
 % Wn = pi/32;
-n = 4;              % filter order
+n = 2;              % filter order
 
 [b,a] = butter(n, Wn,"low");
 [Ah, Bh, Ch, Dh] = tf2ss(b,a);
@@ -44,7 +44,7 @@ BC3 = eye(1 + 2*n);
 % F = [Pf >= eye(n), Pg>= eye(n), C1 >= BC1, C2 >= BC2, C3>= BC3];
 F = [Pf >= 0, Pg>= 0, C1 >= 0, C2 >= 0, C3>= 0];
 
-ops = sdpsettings('solver','sdpt3');
+ops = sdpsettings('solver','sedumi');
 ops.verbose = 1;
 ops.showprogress = 1;
 ops.debug = 1;

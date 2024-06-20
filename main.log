@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.13)  19 JUN 2024 10:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.13)  20 JUN 2024 10:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -690,15 +690,15 @@ Package epstopdf Info: Source file: <mat_plots/butter_3_100khz_1Mhz_1.eps>
 (epstopdf)                    date: 2024-06-18 16:00:17
 (epstopdf)                    size: 98727 bytes
 (epstopdf)             Command: <repstopdf --outfile=mat_plots/butter_3_100khz_1Mhz_1-eps-converted-to.pdf mat_plots/butter_3_100khz_1Mhz_1.eps>
-(epstopdf)             \includegraphics on input line 595.
+(epstopdf)             \includegraphics on input line 594.
 Package epstopdf Info: Output file is already uptodate.
 <mat_plots/butter_3_100khz_1Mhz_1-eps-converted-to.pdf, id=280, 562.1pt x 421.575pt>
 File: mat_plots/butter_3_100khz_1Mhz_1-eps-converted-to.pdf Graphic file (type pdf)
 <use mat_plots/butter_3_100khz_1Mhz_1-eps-converted-to.pdf>
-Package pdftex.def Info: mat_plots/butter_3_100khz_1Mhz_1-eps-converted-to.pdf  used on input line 595.
+Package pdftex.def Info: mat_plots/butter_3_100khz_1Mhz_1-eps-converted-to.pdf  used on input line 594.
 (pdftex.def)             Requested size: 252.94266pt x 189.70699pt.
 
-Overfull \hbox (22.4769pt too wide) in paragraph at lines 595--596
+Overfull \hbox (22.4769pt too wide) in paragraph at lines 594--595
  [][] 
  []
 
@@ -709,20 +709,20 @@ Package epstopdf Info: Source file: <mat_plots/butter_3_100khz_1Mhz_2.eps>
 (epstopdf)                    date: 2024-06-18 16:00:18
 (epstopdf)                    size: 69957 bytes
 (epstopdf)             Command: <repstopdf --outfile=mat_plots/butter_3_100khz_1Mhz_2-eps-converted-to.pdf mat_plots/butter_3_100khz_1Mhz_2.eps>
-(epstopdf)             \includegraphics on input line 601.
+(epstopdf)             \includegraphics on input line 600.
 Package epstopdf Info: Output file is already uptodate.
 <mat_plots/butter_3_100khz_1Mhz_2-eps-converted-to.pdf, id=281, 562.1pt x 421.575pt>
 File: mat_plots/butter_3_100khz_1Mhz_2-eps-converted-to.pdf Graphic file (type pdf)
 <use mat_plots/butter_3_100khz_1Mhz_2-eps-converted-to.pdf>
-Package pdftex.def Info: mat_plots/butter_3_100khz_1Mhz_2-eps-converted-to.pdf  used on input line 601.
+Package pdftex.def Info: mat_plots/butter_3_100khz_1Mhz_2-eps-converted-to.pdf  used on input line 600.
 (pdftex.def)             Requested size: 252.94266pt x 189.70699pt.
 
-Overfull \hbox (22.4769pt too wide) in paragraph at lines 601--602
+Overfull \hbox (22.4769pt too wide) in paragraph at lines 600--601
  [][] 
  []
 
 
-Underfull \hbox (badness 1430) in paragraph at lines 602--602
+Underfull \hbox (badness 1430) in paragraph at lines 601--601
 []\T1/cmr/m/n/10 Figure 13: |Frequency response: Optimal noise
  []
 
@@ -731,21 +731,21 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [8] (./main.bbl) [9 <./mat_plots/butter_3_100khz_1Mhz_1-eps-converted-to.pdf> <./mat_plots/butter_3_100khz_1Mhz_2-eps-converted-to.pdf>] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: B9BD0851DBC0939147C2A398B683FC17;3469.
+(rerunfilecheck)             Checksum: 07E84F1F97BC12CAEE237B29FE3374DA;3555.
  ) 
 Here is how much of TeX's memory you used:
- 13554 strings out of 478268
- 219106 string characters out of 5846347
+ 13553 strings out of 478268
+ 219095 string characters out of 5846347
  529847 words of memory out of 5000000
  31446 multiletter control sequences out of 15000+600000
  487185 words of font info for 74 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  67i,16n,77p,702b,489s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb>
-Output written on main.pdf (9 pages, 1120860 bytes).
+Output written on main.pdf (9 pages, 1120589 bytes).
 PDF statistics:
- 420 PDF objects out of 1000 (max. 8388607)
- 330 compressed objects within 4 object streams
- 99 named destinations out of 1000 (max. 500000)
+ 419 PDF objects out of 1000 (max. 8388607)
+ 329 compressed objects within 4 object streams
+ 98 named destinations out of 1000 (max. 500000)
  202 words of extra memory for PDF output out of 10000 (max. 10000000)
 

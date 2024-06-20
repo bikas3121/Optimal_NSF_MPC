@@ -569,9 +569,9 @@ where $\mu_{e}$ is the variance of the output error  and $\mu_{\eta} $ the varia
 
 \section{Simulatino: Butterworth LPF}
 Let us consider a second order butterworth low pass filter with $F_c = 100 \mathit{kHz}$  and $F_s = 1 \mathit{Mhz}$. Also, denote the low pass filter as $H(z)$ then let $F_{opt}(z)$ as the optimal noise transfer function and $F_{mpc}(z)$ as the noise transfer function due to MPC setting i.e. $F_{mpc} = (H(z)-1)/H(z)$ and  the numerator and denominator of noise transfer function $R(z)$ as $b_{r}$ and $a_{r}$, respectively, i.e., 
-\begin{align}
-	R(z) = \frac{b_{r}}{a_{r}}.
-\end{align}
+% \begin{align}
+	$R(z) = b_{r}/a_{r}.$
+% \end{align}
 Then the corresponding noise shaping filter (NSF) as shown in the Figure~\ref{fig:nsq_efs}  is 
 \begin{align}	
 F(z)  = 1- R(z)= \frac{a_{r}- b_{r}}{a_{r}}.

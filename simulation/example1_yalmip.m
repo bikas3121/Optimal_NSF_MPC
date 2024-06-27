@@ -8,11 +8,16 @@ close all
 Fs = 1e6;
 Fc = 1e5;           % cutoff frequency
 Wn = Fc/(Fs/2);
-% Wn = pi/32;
-n = 2;              % filter order
+% Wn = 2*pi*Fc;
+n = 3;              % filter order
 
-[b,a] = butter(n, Wn,"low");
-[Ah, Bh, Ch, Dh] = tf2ss(b,a);
+[b1,a1] = butter(n, Wn,"low");
+H1  = tf(b1,a1);
+H = minreal(H1, 1e-5);
+b  = [H.num{1}];
+a  = [H.den{1}];
+[Ah, Bh, Ch, Dh] = tf2ss(b1,a1);
+
 
 %% Optimization probelm setup
 % Define variables
@@ -44,7 +49,7 @@ BC3 = eye(1 + 2*n);
 % F = [Pf >= eye(n), Pg>= eye(n), C1 >= BC1, C2 >= BC2, C3>= BC3];
 F = [Pf >= 0, Pg>= 0, C1 >= 0, C2 >= 0, C3>= 0];
 
-ops = sdpsettings('solver','sedumi');
+ops = sdpsettings('solver','mosek');
 ops.verbose = 1;
 ops.showprogress = 1;
 ops.debug = 1;
@@ -65,17 +70,24 @@ P = pinv(P1);
 U = [Pf, eye(n); Sf, zeros(n) ];
 
 %% Optimal NTF
-[Af, Bf, Cf, Df] = ntf(Ah, Bh, Pf, Pg, Wf, Wg, L); % state space
-[bf, af] = ss2tf(Af, Bf, Cf, Df);           % transfer function
+tol = 1e-12;
+[Ar, Br, Cr, Dr] = ntf(Ah, Bh,  Pf, Pg, Wf, Wg, L); % state space
+[br, ar] = ss2tf(Ar, Br, Cr, Dr);           % transfer function
+Hr = tf(br/ar);
+Hr = minreal(Hr, tol);
 
 %% Noise shaping filter
-NSF = tf(af-bf,af);
-[A_nsf, B_nsf, C_nsf, D_nsf] = tf2ss(bf-af,af);
+NSF = tf(ar-br,ar);
+[Af, Bf, Cf, Df] = tf2ss(ar-br,ar);
 
+% corresponding lowpass filter
+LPF = tf(ar/br);
+% LPF = minreal(LPF);
+[A_olpf, B_olpf, C_olpf, D_olpf] = tf2ss(ar, br);
 %% Closed loop system dynamics
-Acl = [Ah, Bh*Cf; zeros(n) , Af];
-Bcl = [Bh; Bf];
-Ccl = [Ch, Dh*Cf];
+Acl = [Ah, Bh*Cr; zeros(n) , Ar];
+Bcl = [Bh; Br];
+Ccl = [Ch, Dh*Cr];
 Dcl = Dh;
 
 %% 
@@ -87,37 +99,59 @@ MP1 = U'*P*U;
 %% %% Plots
 N = Fs/2;
 
-[hf,wf] = freqz(bf,af, N, 'half', Fs);
-[hlp,wlp] = freqz(b,a, N, 'half', Fs);
-[hlp1,wlp1] = freqz(af,bf, N, 'half', Fs);
-%NTF derived directly from butterworth filter
-[hf1,wf1] = freqz(a,b, N, 'half', Fs);
+% tf of H(z)
+[hlp,wlp] = freqz(b1,a1, N, 'half', Fs);
+
+%NSF derived directly from R_{opt}(z)
+[hf,wf] = freqz(b1-a1,b1, N, 'half', Fs);
+
+%NTF derived directly from R_{opt}(z)
+[hn,wn] = freqz(a1,b1, N, 'half', Fs);
 
 
 
-sl = length(hf)/2;
+
+sl = length(hlp)/2;
 figure(Name="Butterworth 2nd order")
 plot(wlp(1:sl)/2*pi*1e-3, 20*log10(abs(hlp(1:sl))));
 hold on 
 plot(wf(1:sl)/2*pi*1e-3, 20*log10(abs(hf(1:sl))));
 hold on 
-plot(wf1(1:sl)/2*pi*1e-3, 20*log10(abs(hf1(1:sl))));
-legend("$H(z)$", " $F_{opt}(z)$",  "$F_{mpc}(z)$", 'Interpreter','latex')
+plot(wn(1:sl)/2*pi*1e-3, 20*log10(abs(hn(1:sl))));
+
+legend("LPF ($H(z)$)","NSF ($F(z)$)","NTF ($R(z)$)",'Interpreter','latex')
 xlabel('Frequency (kHz)')
 ylabel("Magnitude (dB)")
+ylim([-50, 50])
 grid minor
 
 
-
+[hho,who] = freqz(ar,br, N, 'half', Fs);
+[hfo,wfo] = freqz(ar - br,ar, N, 'half', Fs);
+[hntf,wntf] = freqz(br,ar, N, 'half', Fs);
 figure
-plot(wf(1:sl)/2*pi*1e-3, 20*log10(abs(hf(1:sl))));
+plot(who(1:sl)/2*pi*1e-3, 20*log10(abs(hho(1:sl))));
 hold on 
-plot(wlp1(1:sl)/2*pi*1e-3, 20*log10(abs(hlp1(1:sl))));
-
-
-legend("$F_{opt}(z)$","$H_{MPC}(z)$", 'Interpreter','latex')
-grid minor
+plot(wfo(1:sl)/2*pi*1e-3, 20*log10(abs(hfo(1:sl))));
+hold on 
+plot(wntf(1:sl)/2*pi*1e-3, 20*log10(abs(hntf(1:sl))));
+legend("LPF ($H_{opt}(z))$","NSF ($F_{opt}(z)$)", "NTF ($R_{opt}(z)$)", 'Interpreter','latex')
 xlabel('Frequency (kHz)')
 ylabel("Magnitude (dB)")
+ylim([-50,50])
+grid minor
+
+% 
+% figure
+% plot(wlp1(1:sl)/2*pi*1e-3, 20*log10(abs(hlp1(1:sl))));
+% hold on 
+% plot(wf(1:sl)/2*pi*1e-3, 20*log10(abs(hf(1:sl))));
+% 
+% 
+% 
+% legend("$H_{MPC}(z)$", "$F_{opt}(z)$", 'Interpreter','latex')
+% grid minor
+% xlabel('Frequency (kHz)')
+% ylabel("Magnitude (dB)")
 
 

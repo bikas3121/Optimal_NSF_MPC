@@ -61,12 +61,17 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 \tableofcontents
 
 \section{Quantisation}
-Let $w \in \mathbb{R}$ be the input, $\mathbf{Q}$ be the quantiser and $y \in \mathbb{U}$ the quantiser output. The quantiser output 
-Let us define the quantisation error as 
+Let $w \in \mathbb{R}$ be the input, $\mathbf{Q}$ be the quantiser and $y \in \mathbb{U}$ the quantiser output, as shown in the additive model of quantisation in the Figure \ref{fig:quan_add_model}.  Let us define the quantisation error as 
 \begin{equation}
 	q = \mathbf{Q}(w) - w= y -w.
 	\label{eq:error}
 \end{equation}
+\begin{figure}
+    \centering
+    \includegraphics[scale = 1]{figures/quantizer_additive_model.pdf}
+    \caption{Quantiser additive model}
+    \label{fig:quan_add_model}
+\end{figure}
 The quantisation requires the signal to be mapped to a finite signal where each value of the output $y$ is restriced to belong to a finite set $\mathbb{U}$. The elements of the set $\mathbb{U}$ represent the quantiser levels and depends on the word-size of the quantiser. 
 
 \section{Noise shaping quantiser}
@@ -100,13 +105,13 @@ In linear analysis, the output is given by
 \begin{equation}
 	Y(z) = \textbf{STF}. W(z) + \textbf{NTF} .E(Z)
 \end{equation}
-where the signal transfer function $\textbf{STF} = 1$, noise transfer function $\textbf{NTF} =  (1-F)$ 
-and $F = z^{-1}$ for the first-order delta sigma modulator. 
+where the signal transfer function $\textbf{STF} = 1$, noise transfer function $\textbf{NTF} =  (1-F)$ with $F$ being a noise shaping filter. $F = z^{-1}$ is the special case known as 
+the first-order delta-sigma modulator. 
 
 \section{Moving horizon optimal quantiser (MHOQ)}
 The design criteria for the MHOQ is the minimization of the perceived errors defined as follows:
 \begin{equation}
-	e(t) = H(z)(u(t)-y(t))
+	e(t) = H(z)(w(t)-y(t))
 	\label{eq:error1}
 \end{equation}
 where  $H(z)$  is  a stable time-invariant linear low-pass filter with the following state-space
@@ -117,8 +122,8 @@ where  $H(z)$  is  a stable time-invariant linear low-pass filter with the follo
 The error $e$  then can be written as the output of the following state-space representation of $H$
 \begin{equation}
 	\begin{aligned}
-		x(t+1) &= A x(t) + B (u(t)-y(t))		\\
-		e(t) &= Cx(t) + u(t)-y(t)
+		x(t+1) &= A x(t) + B (w(t)-y(t))		\\
+		e(t) &= Cx(t) + w(t)-y(t)
 	\end{aligned}
 	\label{eq:statespace1}
 \end{equation}
@@ -126,32 +131,42 @@ where $x \in \mathbb{R}^{n}$ is the state vector.  The error $e$ corresponds to 
 
 For moving horison implementation, the optimisation problem is defined as the problem of finding $y \in \mathbb{U}$ that minimises  the cost function  while satisfying the state equations as follows:
 \begin{align}
-		& y^{\ast}(t) = \arg  \min_{y(t) }	V_{N}  = \sum_{t=k}^{k+N-1} e^{2}(t) \\
+		& y^{\ast}(t) = \arg  \min_{y(t) }	V_{N}  = \sum_{t=k}^{k+N-1} e^{2}(t) \label{eq:optobj1}\\
 		\intertext{subject to}
-		&x(t+1) = A x(t) + B (y(t)-w(t))		\\
-		&e(t) = Cx(t) + y(t)-w(t)		\\
-		&y(t) \in \mathbb{U}.
+		&x(t+1) = A x(t) + B (w(t)-y(t))	\label{eq:optconst1}	\\
+		&e(t) = Cx(t) + w(t)-y(t)	\label{eq:optconst2}	\\
+		&y(t) \in \mathbb{U}. \label{eq:optconst3}
+	\end{align}
+\newpage
+\subsection{Alternative binary formulation}
+The optimization problem \eqref{eq:optobj1}-\eqref{eq:optconst3} can be reformulated as an optimization problem with the binary variables. Let $\mathcal{B}$ be the number of bits.  $b_{i} = \{0,1\}$ and $Q_{i}$ $, i = \{0, 1, \ldots, 2^{\mathcal{B}}-1\}$, be the binary variables and quantisation levels, respectively. 
+\begin{align}
+		& y^{\ast}(t) = \arg  \min_{y(t) }	V_{N}  = \sum_{t=k}^{k+N-1} e^{2}(t) \label{eq:optobj12}\\
+		\intertext{subject to}
+		&x(t+1) = A x(t) + B (w(t)-y(t))	\label{eq:optconst12}	\\
+		&e(t) = Cx(t) + (w(t)-y(t))	\label{eq:optconst22}	\\
+		&y(t) = \sum_{i = 0}^{2^{\mathcal{B}}-1} Q_{i}b_{i}, \quad \sum_{i = 0}^{2^{\mathcal{B}}-1}b_{i}  =1, \quad b_{i} = \{0,1\}. \label{eq:optconst32} 
 	\end{align}
 
-\section{Frequency response: LPF and NTF}
-\subsection{Perception filter}
-The  frequency response and the STF and NTF of the perception filter used in  
-\cite{goodwin2003moving} are shown in the
-figure below, 
-\begin{figure}[!h]
-	\centering
-\begin{minipage}{0.45\linewidth}
-	\centering
-	\includegraphics[scale = 0.45]{plots/percp.eps}
-        \caption{Perception filter Frequency response}
-	\end{minipage}
-	\hfil
-	\begin{minipage}{0.45\linewidth}
-	\centering
-	\includegraphics[scale = 0.45]{plots/stf_ntf_perception_linear.eps}
-		\caption{STF and NTF using perception filter}
-\end{minipage}
-\end{figure}
+% \section{Frequency response: LPF and NTF}
+% \subsection{Perception filter}
+% The  frequency response and the STF and NTF of the perception filter used in  
+% \cite{goodwin2003moving} are shown in the
+% figure below, 
+% \begin{figure}[!h]
+% 	\centering
+% \begin{minipage}{0.45\linewidth}
+% 	\centering
+% 	\includegraphics[scale = 0.45]{plots/percp.eps}
+%         \caption{Perception filter Frequency response}
+% 	\end{minipage}
+% 	\hfil
+% 	\begin{minipage}{0.45\linewidth}
+% 	\centering
+% 	\includegraphics[scale = 0.45]{plots/stf_ntf_perception_linear.eps}
+% 		\caption{STF and NTF using perception filter}
+% \end{minipage}
+% \end{figure}
 
 
 % \subsection{Butterworth Filter}
@@ -545,9 +560,9 @@ and finally the constraint \ref{eq:lmi2} using the transformation is
 with $M_{\tilde{C}} := \tilde{C}U$. The LMI conditions  \ref{eq:bmi21}, \ref{eq:lmi22} and \ref{eq:lmi23} are convex and the minimization of $\gamma_{e}$ with these constraints is a convex optimization problem.
 
 \subsection{Optimization Problem:}
-With the change of the variable the BMI is converted to the LMI and the since all the LMIs are convex the optimization problem is a convex optimization problem. Also, since the objective is linear and the constraints are LMIs and linearity constraints, the optimization problem is SemiDefinite Program (SDP). Such SDP can be solved numerically using CVX. The optimization problem takes the following form, 
+With the change of the variables the BMI is converted to the LMI and since all the LMIs are convex, the optimization problem is a convex optimization problem. Also, since the objective is linear and the constraints are LMIs and with linearity constraints, the optimization problem is Semi-Definite Program (SDP). Such SDP can be solved numerically using CVX. The optimization problem takes the following form, 
 \begin{align}
-	&\min \mu_{e} = \gamma_{e}^{2} \\
+	&\min \mu_{e} = \gamma_{e}^{2} \label{eq:sdpconsobj} \\
 	\intertext{subject to,} 	
 	&\begin{bmatrix}
 		M_{P} & M_{A} & M_{B}\\
@@ -567,44 +582,199 @@ With the change of the variable the BMI is converted to the LMI and the since al
 where $\mu_{e}$ is the variance of the output error  and $\mu_{\eta} $ the variance of the feedback error. 
 
 
-\section{Simulatino: Butterworth LPF}
-Let us consider a second order butterworth low pass filter with $F_c = 100 \mathit{kHz}$  and $F_s = 1 \mathit{Mhz}$. Also, denote the low pass filter as $H(z)$ then let $F_{opt}(z)$ as the optimal noise transfer function and $F_{mpc}(z)$ as the noise transfer function due to MPC setting i.e. $F_{mpc} = (H(z)-1)/H(z)$ and  the numerator and denominator of noise transfer function $R(z)$ as $b_{r}$ and $a_{r}$, respectively, i.e., 
-% \begin{align}
-	$R(z) = b_{r}/a_{r}.$
-% \end{align}
-Then the corresponding noise shaping filter (NSF) as shown in the Figure~\ref{fig:nsq_efs}  is 
-\begin{align}	
-F(z)  = 1- R(z)= \frac{a_{r}- b_{r}}{a_{r}}.
-\end{align}
-Following the analogy of MPC formualation the obtained low pass filter due the high- noise shaping filter is 
-\begin{equation}
-	H_{mpc}(z) = \frac{1}{1-F(z)} =  \frac{a_{r}}{b_{r}}.
-\end{equation}  
-% \begin{figure}[!h]
-% 	\centering
-% 	\includegraphics[scale = 1]{mat_plots/butter_2_100khz_1Mhz.eps}	
-% 	\caption{Frequency response: Butterworth filter with $n = 3$ and $F_{c} = 100\mathit{kHz}$}
-% \end{figure}
+\section{Simulation: Optimal noise shaping}
 
+\subsubsection*{Notations:}
+Let us denote the transfer function of a Butterworth low pass filter as $H(z)$.  Then from Figure~\ref{fig:nsq_efs},  the noise transfer function (NTF) is denoted by $R(z)$ and comparing Figure~\ref{fig:dsm} and Figure~\ref{fig:nsq_efs}, the noise shaping transfer function $F(z) = 1- R(z).$ Moreover,  it is shown in the moving horizon implementation of the quantisation \cite{goodwin2003moving}, the low-pass filter and the noise shaping filter are related as follows, 
+\begin{equation}
+   F(z)= \frac{H(z)-1}{H(z)} \qquad \Leftrightarrow   \qquad H(z) = \frac{1}{1- F(z)} = \frac{1}{R(z)}.
+   \label{eq:filter_relationship}
+\end{equation}
+
+Next, let the optimal noise transfer function (NTF) for low-pass filter $H(z)$ obtained by solving the optimization problem \eqref{eq:sdpconsobj}-\eqref{eq:sdpcons3} is denoted as $\displaystyle{R_{opt}(z) = \frac{b_{r}}{a_r}}$, where $b_{r}$ and $a_{r}$ are the numerator and denominator of the noise transfer function, respectively.   Then the optimal noise-shaping transfer function (NSF) is $\displaystyle{F_{opt}(z) = 1- R_{opt}(z)= \frac{a_{r}-b_{r}}{a_{r}}}$. Finally, the optimal low pass filter for MPC implementation is $H_{mpc} = \frac{1}{R_{opt}(z)} = \frac{a_{r}}{b_{r}}$.
+
+
+
+% The notations are as follows, 
+% \begin{itemize}
+%     %\item $H(z)$: Arbitrary low pass Butterworth filter
+%      \item  $R_{opt}(z) = \displaystyle{\frac{b_{r}}{a_{r}}}$: Optimal noise transfer function (NTF).
+%     \item $F_{opt}(z) := 1- R_{opt}(z) =\frac{a_{r}- b_{r}}{a_{r}}$: Optimal noise shaping filter 
+%    \item $H_{mpc} := \frac{1}{1-F_{opt}(z)} = \frac{a_{r}}{b_{r}}.$
+% \end{itemize}
+\subsection{Simulation 1:}
+Let us consider a third-order butter-worth low pass filter $H(z)$ with $F_c = 100 \mathit{kHz}$  and $F_s = 1 \mathit{Mhz}$. Then, from the expression in the equation \ref{eq:filter_relationship} the corresponding noise shaping filter $F(z)$ and the noise transfer function $R(z)$ can be obtained. 
+Next, the optimization problem \eqref{eq:sdpconsobj}-\eqref{eq:sdpcons3} with the constraint $\gamma_{\eta} < 1.5^{2}$ (Lee's condition) is solved to obtain the optimal noise transfer function $R_{opt}(z)$ and consequently the $F_{opt}(z)$ and $H_{mpc}(z)$ are obtained. The frequency responses of $H(z)$, $F(z)$ and $R(z)$ are shown in the Figure.~\ref{fig:nonoptimal_filter} and that of $H_{opt}(z)$, $F_{opt}(z)$ and $R_{opt}(z)$ are shown in Figure~\ref{fig:optimal_filter}.
 
 \begin{figure}[!h]
 	\centering
 	\begin{minipage}{0.45\linewidth}
 		\centering
-		\includegraphics[scale = 0.45]{mat_plots/butter_3_100khz_1Mhz_1.eps}
-		\caption{Frequency response: Butterworth filter with $n = 3$ and $F_{c} = 100\mathit{kHz}$ and corresponding optimal noise shaping filter and low pass filter}
+		\includegraphics[scale = 0.45]{mat_plots/NO_butter_3_100khz_1Mhz_14_06_2024.eps}
+		\caption{Frequency response: Butterworth filter $H(z)$ with $n = 3$ and $F_{c} = 100\mathit{kHz}$ and corresponding noise shaping filter $F(z)$ and noise transfer function $R(z)$.}
+        \label{fig:nonoptimal_filter}
 	\end{minipage}
 	\hfil
 	\begin{minipage}{0.45\linewidth}
 		\centering
-		\includegraphics[scale = 0.45]{mat_plots/butter_3_100khz_1Mhz_2.eps}
-		\caption{Frequency response: Optimal noise shaping filter and corresponding low pass filter}
+		\includegraphics[scale = 0.45]{mat_plots/O_butter_3_100khz_1Mhz_14_06_2024.eps}
+		\caption{Frequency response: Optimal noise transfer function $R_{opt}(z)$ for $H(z)$ and corresponding noise shaping filter $F_{opt}(z)$ and low pass filter $H_{opt}(z)$.}
+   \label{fig:optimal_filter}
 	\end{minipage}
 \end{figure}
+
+
+\begin{table}[!h]
+	\caption{ENOB obtained for different methods with uniform quantisation models. Optimal NTF solved for second order butterworth filter with $Fc = 100 \mathit{kHz}$ and $Fs = 1 \mathit{Mhz}$.}
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|}
+	\hline
+	ENOB/ Methods & Direct & DSM & NSD (Optimal) & MPC $(N = 1)$ & MPC $(N= 2)$ & MPC $(N= 3)$  \\
+        \hline
+        6-bit & 6.936 & 8.291 & 9.30  & 9.30 & 9.303 & 9.361\\
+        \hline
+        8-bit & 9.650 & 10.366 & 11.357  & 11.357 & 11.326 & 11.380\\
+         \hline
+        12-bit & 13.285 & 14.365 & 15.372  & 15.372 & 15.290 & 15.281\\
+	\hline
+	16-bit & 17.148 & 18.390 & 19.373  & 19.373 & 19.247& 19.134 \\
+	\hline
+	\end{tabular}		
+\end{table}
+
+\begin{table}[!h]
+\caption{ENOB obtained for different methods with nonlinear quantisation models. Optimal NTF solved for second order butterworth filter with $Fc = 100 \mathit{kHz}$ and $Fs = 1 \mathit{Mhz}$.}
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|}
+	\hline
+	ENOB/ Methods & Direct & DSM & NSD (Optimal) & MPC $(N = 1)$ & MPC $(N= 2)$ & MPC $(N= 3)$  \\
+        \hline
+        6-bit &4.177 & 7.977 & 7.022  & 7.022 & 6.99 & 7.007\\
+        \hline
+        8-bit & 6.526 & 9.968 & 9.228  & 9.228 & 9.251 & 9.241\\
+         \hline
+        12-bit & 10.830 & 13.679 & 13.524 & 13.524 & 13.503 & 13.509\\
+	\hline
+	16-bit & 13.577 & 15.77 & 16.156  & 16.156 & 16.157& 16.145 \\
+	\hline
+	\end{tabular}		
+\end{table}
+% \subsubsection{PSD of quantised signal}
+\begin{figure}[!h]
+	\centering
+	\begin{minipage}{0.45\linewidth}
+		\centering
+		\includegraphics[scale = 0.58]{mat_plots/psd_plots/direct.png}
+		\caption{Direct Quantisation}
+        \label{fig:direct_psd}
+	\end{minipage}
+	\hfil
+	\begin{minipage}{0.45\linewidth}
+		\centering
+		\includegraphics[scale = 0.6]{mat_plots/psd_plots/dsm.png}
+		\caption{Delta sigma modulator}
+   \label{fig:dsm_psd}
+	\end{minipage}
+\end{figure}
+\begin{figure}[!h]
+	\centering
+	\begin{minipage}{0.5\linewidth}
+		\centering
+		\includegraphics[scale = 0.6]{mat_plots/psd_plots/nsd.png}
+		\caption{Noise shaping quantiser}
+        \label{fig:nsd_psd}
+	\end{minipage}
+	\hfil
+	\begin{minipage}{0.45\linewidth}
+		\centering
+		\includegraphics[scale = 0.6]{mat_plots/psd_plots/mpc.png}
+		\caption{MPC with optimal noise shaping}
+   \label{fig:mpc_psd}
+	\end{minipage}
+\end{figure}
+
+\subsection{Simulation 2:}
+Consider a third order Butterworth filter with $Fc = 100 \mathit{kHz}$ and $Fs = 10 \mathit{Mhz}$.
+\begin{table}[!h]
+	\caption{ENOB obtained for different methods with nonlinear quantisation models. Optimal NTF solved for second order butterworth filter with $Fc = 100 \mathit{kHz}$ and $Fs = 10 \mathit{Mhz}$.}
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|}
+	\hline
+	ENOB/ Methods & Direct & DSM & NSD (Optimal) & MPC $(N = 1)$ & MPC $(N= 2)$ & MPC $(N= 3)$  \\
+        \hline
+        6-bit &5.041 & 12.355 & 15.576 & 15.576 & 15.548 & 15.577\\
+        \hline
+        8-bit & 7.392 & 13.950 & 16.988  & 16.988 & 16.406 & 17.008\\
+         \hline
+        12-bit & 11.210 & 17.368 & 20.952 & 20.952 &  20.950 & 20.931\\
+	\hline
+	16-bit & 13.877 & 19.413 & 23.369  & 23.369 & 23.372& 23.372 \\
+	\hline
+	\end{tabular}		
+\end{table}
+
+
+\section{NSD performance: ENOB vs $\gamma_{\eta}$}
+\begin{table}[!h]
+	\caption{ENOB for different values of $\gamma_{\eta}$}
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+	\hline
+	 Methods/$\gamma_{\eta}$ & 1.5 & 2 & 3 & 4 &5 & 6 & 7 & 8 & 9 &  10 & 11 & 12  \\
+        \hline
+        Direct &17.148 & - & - & - & - & - & -& - & - & - & - & - \\
+        \hline
+        DSM &18.390 & - & - & - & - & - & -& - & - & - & - &  - \\
+        \hline
+        NSD &19.158 & 19.373 & 19.533 & 19.518 & 19.465 & 19.357 &19.231 & 19.111 & 18.994  & 3.793 & 4.227 & 2.845\\
+        \hline
+        MPC(N=1) &19.158 & 19.373 & 19.533 & 19.518 & 19.465 & 19.357 &19.231 & 19.111 & 18.994  & 3.793 & 4.227 & 2.845\\
+         \hline
+        MPC(N=2) & 19.098& 19.237 & 19.533 & 19.402 & 19.301 & 19.191 & 19.023 & 18.909 & 18.787 & 18.738 & 18.641 & 18.577\\
+	\hline
+	MPC(N=3)  & 18.955& 19.133 & 19.266 & 19.180 & 19.040 & 18.868 & 18.746& 18.677 & 18.638 & 18.560 & 18.456 & 18.379\\
+ 
+
+
+	\hline
+	\end{tabular}		
+\end{table}
+
+
+% \begin{figure}[!h]
+% 	\centering
+% 	\begin{minipage}{0.45\linewidth}
+% 		\centering
+% 		\includegraphics[scale = 0.45]{mat_plots/butter_3_100khz_1Mhz_1.eps}
+% 		\caption{Frequency response: Butterworth filter with $n = 3$ and $F_{c} = 100\mathit{kHz}$ and corresponding optimal noise shaping filter and low pass filter}
+%         \label{fig:nonoptimal_filter}
+% 	\end{minipage}
+% 	\hfil
+% 	\begin{minipage}{0.45\linewidth}
+% 		\centering
+% 		\includegraphics[scale = 0.45]{mat_plots/butter_3_100khz_1Mhz_2.eps}
+% 		\caption{Frequency response: Optimal noise shaping filter and corresponding low pass filter}
+%    \label{fig:optimal_filter}
+% 	\end{minipage}
+% \end{figure}
 
 \newpage
 %\section{References}
 %\label{sec:org89add8d}
 \bibliographystyle{unsrt}
 \bibliography{references_new} 
+
+\section{Scribble}
+
+We want to minimise this error: $\bar{e} = H y - H w = H v + H \epsilon - H w$
+
+$\bar{e} = H y - H w = H v + H \epsilon - H w$
+
+What is $\bar{e}$ when
+\begin{itemize}
+    \item the feedback filter is a (double) delay (standard delta-sigma)
+    \item the feedback filter is optimal
+    \item the feedback filter is implemented in the MPC formulation with horizon length 1, 2, 3, ...
+\end{itemize}
+
 \end{document}

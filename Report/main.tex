@@ -775,11 +775,11 @@ with $\tilde{v}_{i} = \Psi v_{i}$ and $v_{i} \in \mathbb{U}^{N} = \{ v_{1}, v_{2
 
 The moving horizon implementation of the above solution is 
 \begin{equation}
-	\tilde{y}(k) =[1, 0, \ldots, 0]\mathbf{y}^{\ast}(k) = [1, 0, \ldots, 0] \Psi^{-1} q_{\tilde{\mathbb{U}}^{N}} \big[\Psi \mathbf{w}(k) + \Gamma x(k)\big].
+	{y}(k) =[1, 0, \ldots, 0]\mathbf{y}^{\ast}(k) = [1, 0, \ldots, 0] \Psi^{-1} q_{\tilde{\mathbb{U}}^{N}} \big[\Psi \mathbf{w}(k) + \Gamma x(k)\big].
 \end{equation}
 Replacing $x(k) = (zI- A)^{-1}B (a(k) - u(k))$ and with further manipulation, we get, 
 \begin{equation}
-	\tilde{y}(k) =[1, 0, \ldots, 0] \Psi^{-1} q_{\tilde{\mathbb{U}}^{N}} \big[\Psi \bigl\{ \mathcal{H}(z)  \mathbf{w}(k) - \big[ \mathcal{H}(z) -I\big] \mathbf{y}^{\ast}(k)\bigr\} \big].
+	{y}(k) =[1, 0, \ldots, 0] \Psi^{-1} q_{\tilde{\mathbb{U}}^{N}} \big[\Psi \bigl\{ \mathcal{H}(z)  \mathbf{w}(k) - \big[ \mathcal{H}(z) -I\big] \mathbf{y}^{\ast}(k)\bigr\} \big].
 \end{equation}
 where 
 \begin{equation}
@@ -804,7 +804,7 @@ When the prediction horizon is $N = 1$, $\Psi = 1$ since $h_{0}=1$ and
 \end{align*}
 and the moving horizon implementation is 
 \begin{equation}
-	\tilde{y}(k) =  q_{\tilde{\mathbb{U}}^{N}} \big[{H}(z)  {w}(k) - \big[ {H}(z) -I\big] {y}^{\ast}(k)\big].
+	{y}(k) =  q_{\tilde{\mathbb{U}}^{N}} \big[{H}(z)  {w}(k) - \big[ {H}(z) -I\big] {y}^{\ast}(k)\big].
 \end{equation}
 and $ q_{\tilde{\mathbb{U}}^{N}}[.] = q_{{\mathbb{U}}^{N}}[.]$ for $\Psi = 1$ and it becomes scalar (direct) quantisation.
 
@@ -841,7 +841,7 @@ Then
 \end{align*}
 and the moving horizon implementation is 
 \begin{align*}
-	\tilde{y}(k)  &=[1, 0] \Psi^{-1} q_{\tilde{\mathbb{U}}^{N}} \big[\Psi \bigl\{ \mathcal{H}(z)  \mathbf{w}(k) - \big[ \mathcal{H}(z) -I\big] \mathbf{y}^{\ast}(k)\bigr\} \big] \\
+	{y}(k)  &=[1, 0] \Psi^{-1} q_{\tilde{\mathbb{U}}^{N}} \big[\Psi \bigl\{ \mathcal{H}(z)  \mathbf{w}(k) - \big[ \mathcal{H}(z) -I\big] \mathbf{y}^{\ast}(k)\bigr\} \big] \\
 &=[1, 0] \Psi^{-1} q_{\tilde{\mathbb{U}}^{N}} \big[\Psi  \mathcal{H}(z)  \mathbf{w}(k) - \Psi  \big[ \mathcal{H}(z) -I\big] \mathbf{y}^{\ast}(k) \big] \\
 &=[1, 0] \Psi^{-1} q_{\tilde{\mathbb{U}}^{N}} \big[\Psi  \mathcal{H}(z) \big( \mathbf{w}(k) - \mathbf{y}^{\ast}(k) \big) + \Psi  \mathbf{y}^{\ast}(k) \big] \\
 &=[1, 0] \Psi^{-1} q_{\tilde{\mathbb{U}}^{N}} \Bigg[ \begin{bmatrix}

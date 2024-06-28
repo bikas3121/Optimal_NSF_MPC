@@ -806,8 +806,14 @@ and the moving horizon implementation is
 \begin{equation}
 	\tilde{y}(k) =  q_{\tilde{\mathbb{U}}^{N}} \big[{H}(z)  {w}(k) - \big[ {H}(z) -I\big] {y}^{\ast}(k)\big].
 \end{equation}
-and $ q_{\tilde{\mathbb{U}}^{N}}$ becomes scalar (direct) quantisation.
+and $ q_{\tilde{\mathbb{U}}^{N}}[.] = q_{{\mathbb{U}}^{N}}[.]$ for $\Psi = 1$ and it becomes scalar (direct) quantisation.
 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale = 2]{figures/nsd_mhoq_implementation.pdf}
+	\caption{NSD equivalent of MHOQ implementation for $N=1$.}
+	\label{fig:nsd_mhoq_implementation}
+\end{figure}
 \subsection{Prediction horizon $N=2$:}
 When the prediction horizon is $N = 1$, $\Psi = \begin{bmatrix}
 h_{0} & 0 \\ h_{1} & h_{0}
@@ -845,7 +851,12 @@ H(z) - h_{1}CA(zI-A)^{-1}B & 0 \\ h_{1} H(z) - (h_{1}^{2} - 1) CA (zI-A)^{-1} B 
 \end{bmatrix} \mathbf{y}^{\ast}(k) \Bigg]
 \end{align*}
 
-
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale = 2]{figures/nsd_mhoq_implementation_N2.pdf}
+	\caption{NSD equivalent of MHOQ implementation for $N>2$.}
+	\label{fig:nsd_mhoq_implementation_N2}
+\end{figure}
 
 
 % \begin{figure}[!h]

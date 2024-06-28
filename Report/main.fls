@@ -920,6 +920,16 @@ INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmbx6.tfm
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmti12.tfm
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmti8.tfm
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmti7.tfm
+INPUT ./figures/nsd_mhoq_implementation.pdf
+INPUT ./figures/nsd_mhoq_implementation.pdf
+INPUT figures/nsd_mhoq_implementation.pdf
+INPUT ./figures/nsd_mhoq_implementation.pdf
+INPUT ./figures/nsd_mhoq_implementation.pdf
+INPUT ./figures/nsd_mhoq_implementation_N2.pdf
+INPUT ./figures/nsd_mhoq_implementation_N2.pdf
+INPUT figures/nsd_mhoq_implementation_N2.pdf
+INPUT ./figures/nsd_mhoq_implementation_N2.pdf
+INPUT ./figures/nsd_mhoq_implementation_N2.pdf
 INPUT ./main.bbl
 INPUT main.bbl
 INPUT ./main.bbl

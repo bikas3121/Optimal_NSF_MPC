@@ -1,8 +1,8 @@
-PWD /Volumes/Work/Reports-MPC/MPC_Tuning/Report
+PWD /Volumes/Work/Reports-MPC/Tuning_MPC_with_OptNSF/Report
 INPUT /usr/local/texlive/2022/texmf.cnf
 INPUT /usr/local/texlive/2022/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Volumes/Work/Reports-MPC/MPC_Tuning/Report/main.tex
+INPUT /Volumes/Work/Reports-MPC/Tuning_MPC_with_OptNSF/Report/main.tex
 OUTPUT main.log
 INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/base/article.cls

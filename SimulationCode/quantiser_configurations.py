@@ -54,9 +54,15 @@ def quantiser_configurations(QConfig):
             sys.exit("Invalid quantiser configuration selected.")
 
     # Qantiser range scaled according to the quantiser levels
-    Vmin = 0
-    Vmax = 2**Nb -1
-    Rng = Vmax - Vmin  # voltage range
+    match 1:
+        case 1:
+            Vmin = 0
+            Vmax = 2**Nb -1
+            Rng = Vmax - Vmin  # voltage range
+        case 2:
+            Vmin = 0
+            Vmax = 2
+            Rng = Vmax - Vmin
 
     # Quantiser step size    
     Qstep = Rng/Mq  # step-size (LSB)

@@ -740,6 +740,23 @@ Consider a third order Butterworth filter with $Fc = 100 \mathit{kHz}$ and $Fs =
 \end{table}
 
 
+\begin{table}[!h]
+	\caption{ENOB for different values of $\gamma_{\eta}$}
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+	\hline
+	 $\gamma_{\eta}$/ Headroom&0  & 10 & 20 & 30 & 40 &50 & 60 & 70 & 80 & 90  \\
+        \hline
+	 3 & 19.532 & 19.380 & 19.204 & 19.015 & 18.799 &18.533 & 18.202 & 17.791 & 17.184 & 16.173  \\
+	\hline
+	 9 & 18.976 & 18.628 & 3.888 & 18.477 & 11.180 &17.66 & 17.55 & 2.05 & 1.43 & 0.84  \\
+	 \hline
+	 10 & 18.976 & 18.628 & 3.888 & 18.477 & 11.180 &17.66 & 17.55 & 2.05 & 1.43 & 0.84  \\
+	 \hline
+	\end{tabular}		
+\end{table}
+
+
 \section{Closed Form Solution:}
 Let $N$ be the prediction horizon of the moving horizon implementation and $\mathbb{U}$ the quantisation levels. The $N$th power cartesian product of the set $\mathbb{U}$ for $N$ is defined as  $\mathbb{U}^{N}:= \mathbb{U} \ldots \times \ldots \mathbb{U}$. Let $n_{\mathbb{U}}$ represent the number of element in the set $\mathbb{U}$ i.e., number of quantisation levels, then the number of elements on the set $\mathbb{U}^{N}$ is $n_{\mathbb{U}}^{N}$. Also, let $v_{i}, i = \{1, 2, \ldots, n_{\mathbb{U}}^{N}\}$ represent the elements of the set $\mathbb{U}^{N}$. Then, the closed form solution of the moving horizon implementation of the optimisation problem \eqref{eq:optobj1}-\eqref{eq:optconst3} is 
 \begin{equation}

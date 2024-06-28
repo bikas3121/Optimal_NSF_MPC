@@ -112,7 +112,7 @@ if __name__ == "__main__":
 
     # %%
     # Direct quantizer
-    Xcs_direct = quantise_signal(Xcs, Qstep, YQ, Qtype)  # directly quantized vectors 
+    Xcs_direct = quantise_signal(Xcs, Qstep, Vmin, Vmax, YQ, Qtype)  # directly quantized vectors 
 
     fig, ax  = plt.subplots()
     ax.plot(t, Xcs)

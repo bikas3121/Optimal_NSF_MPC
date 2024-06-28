@@ -14,6 +14,7 @@ import scipy
 import csv
 import matplotlib.pyplot as plt
 import statistics
+import math 
 
 from DirectQantization import quantise_signal, generate_code, generate_dac_output
 from  quantiser_configurations import quantiser_configurations, get_measured_levels
@@ -43,8 +44,10 @@ def test_signal(SCALE, MAXAMP, FREQ, Rng,  OFFSET, t):
     Returns
         x - sinusoidal test signal
     """
-    return (SCALE/100)*MAXAMP*np.cos(2*np.pi*FREQ*t) + OFFSET  + 2**(Nb-1)
+    return (SCALE/100)*MAXAMP*np.cos(2*np.pi*FREQ*t) + OFFSET  +Rng/2 
+    # return (SCALE/100)*MAXAMP*np.cos(2*np.pi*FREQ*t) + OFFSET  
 
+HEADROOM  = 10
 # %% Chose how to compute SINAD
 class sinad_comp:
     CFIT = 1        # curve fitting
@@ -88,8 +91,8 @@ SIGNAL_MAXAMP = Rng/2 - Qstep  # make headroom for noise dither (see below)
 SIGNAL_OFFSET = -Qstep/2  # try to center given quantiser type
 Xcs = test_signal(Xcs_SCALE, SIGNAL_MAXAMP, Xcs_FREQ, Rng,  SIGNAL_OFFSET, t)
 
-# fig, ax = plt.subplots()
-# ax.plot(t, Xcs)
+fig, ax = plt.subplots()
+ax.plot(t, Xcs)
 
 # %% Reconstruction filter parameters 
 match 3:
@@ -111,8 +114,8 @@ match 3:
     
     case 3: # LPF derived from optimal NTF Optimal NTF
         # Optimal NTF
-        nsf_num = scipy.io.loadmat('Optimal_NSF/NSF_num_100kHz_1MHz_10|1Mueta.mat')
-        nsf_den = scipy.io.loadmat('Optimal_NSF/NSF_den_100kHz_1MHz_10|1Mueta.mat')
+        nsf_num = scipy.io.loadmat('generate_optimal_NSF/NSF_num_100kHz_1MHz_10|1Mueta.mat')
+        nsf_den = scipy.io.loadmat('generate_optimal_NSF/NSF_den_100kHz_1MHz_10|1Mueta.mat')
         bn = nsf_num['br']
         an = nsf_den['ar']
 
@@ -131,17 +134,17 @@ YQns = YQ
 # Measured quantiser levels
 MLns = get_measured_levels(Qconfig)
 # %% LIN methods on/off
-DIR_ON = False
-DSM_ON = False
+DIR_ON = True
+DSM_ON = True
 NSD_ON = True
-MPC_ON = True
+MPC_ON = False
 
 # %% Quatniser Model
 # Quantiser model: 1 - Ideal , 2- Calibrated
 QMODEL = 1
 # %% Direct Quantization 
 if DIR_ON:
-    C_DIR = quantise_signal(Xcs, Qstep, YQns, Qtype).astype(int)
+    C_DIR = np.floor(Xcs/Qstep + 0.5).astype(int)
     match QMODEL:
         case 1:
             Xcs_DIR = generate_dac_output(C_DIR, YQns)
@@ -156,6 +159,10 @@ if DSM_ON:
             Xcs_DSM = generate_dac_output(C_DSM, YQns)
         case 2:
             Xcs_DSM = generate_dac_output(C_DSM, MLns)
+
+# fig, ax = plt.subplots()
+# ax.plot(t, Xcs)
+# ax.plot(t, Xcs_DIR.squeeze())
 # %% NSD CAL
 if NSD_ON:
     match 1:
@@ -163,16 +170,18 @@ if NSD_ON:
             bn = b-a
             an = b
             AM,BM,CM,DM = signal.tf2ss(bn,an)
+     
+    X = ((100-HEADROOM)/100)*Xcs  # input
 
     # C_NSD = noise_shaping(Nb, Xcs, bns, ans, Qstep, YQns, MLns, Vmin, QMODEL)  
-    C_NSD = nsdcal(Xcs, YQns, MLns, Qstep, Vmin, Nb, QMODEL, AM, BM, CM, DM)
+    C_NSD = nsdcal(X, YQns, MLns, Qstep, Vmin, Nb, QMODEL, AM, BM, CM, DM)
     match QMODEL:
         case 1:
             Xcs_NSD = generate_dac_output(C_NSD, YQns)
         case 2:
             Xcs_NSD = generate_dac_output(C_NSD, MLns) 
 
-Q_NSD = (Xcs - Xcs_NSD ).squeeze()
+    Q_NSD = (Xcs - Xcs_NSD ).squeeze()
 
 # %% MPC : Prediction horizon
 N = 2
@@ -228,22 +237,16 @@ if MPC_ON:
 
 
 
-# if DIR_ON and NSD_ON:
-#     plot_variance(var_dir = var_DIR,  var_nsd = var_NSD)
-#     fig, ax = plt.subplots()
-#     ax.plot(t[TRANSOFF: TRANSOFF + len(F_Xcs_DIR)], F_Xcs.squeeze())
-#     ax.plot(t[TRANSOFF: TRANSOFF + len(F_Xcs_DIR)], F_Xcs_DIR.squeeze())
-#     ax.plot(t[TRANSOFF: TRANSOFF + len(F_Xcs_NSD)], F_Xcs_NSD.squeeze())
-# if DIR_ON and NSD_ON and MPC_ON:
-#     plot_variance(var_dir = var_DIR,  var_nsd = var_NSD, var_mhoq = var_MHOQ)
-#     fig, ax = plt.subplots()
-#     ax.plot(t[TRANSOFF: TRANSOFF + len(F_Xcs_DIR)], F_Xcs.squeeze())
-#     ax.plot(t[TRANSOFF: TRANSOFF + len(F_Xcs_DIR)], F_Xcs_DIR.squeeze())
-#     ax.plot(t[TRANSOFF: TRANSOFF + len(F_Xcs_NSD)], F_Xcs_NSD.squeeze())
-#     ax.plot(t[TRANSOFF: TRANSOFF + len(F_Xcs_NSD)], F_Xcs_MHOQ.squeeze())
-
 if NSD_ON and MPC_ON:
     plot_variance(var_nsd = var_NSD, var_mhoq = var_MHOQ)
+
+
+# %%
+# sl1 = 4000
+# fig,ax = plt.subplots()
+# ax.plot(t[0:sl1], Xcs[0:sl1])
+# ax.plot(t[0:sl1], Xcs_NSD[0,0:sl1])
+# ax.legend('Ref','NSQ')
 # %% Quantisation error
 # q_mhoq = Xcs[0:Xcs_MHOQ.size] - Xcs_MHOQ.squeeze()
 # fig, ax = plt.subplots()

@@ -2,7 +2,7 @@
 import numpy as np
 from scipy import linalg
 from quantiser_configurations import quantiser_type
-
+import math
 
 def quantise_signal(Xcs, Qstep, Qlevels, Qtype):
     # Perfrom the quatnization of the input signal
@@ -36,8 +36,8 @@ def quantise_signal(Xcs, Qstep, Qlevels, Qtype):
     # Quatizer saturation within its range
     np.place(q_Xcs, q_Xcs> Vmax, Vmax)
     np.place(q_Xcs, q_Xcs < Vmin, Vmin)
-
-    return q_Xcs
+    c = q_Xcs - math.floor(Vmin/Qstep)  # code
+    return c.astype(int)
 
 
 def generate_code(Nb, q_Xcs, Qstep,  Qtype):

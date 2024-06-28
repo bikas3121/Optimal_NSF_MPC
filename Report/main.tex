@@ -860,7 +860,7 @@ CA(zI- A)^{-1}B & 1
 \end{bmatrix}
 \end{align*}
 and the moving horizon implementation is 
-\begin{align*}
+\begin{align}
 	{y}(k)  &=[1, 0] \Psi^{-1} q_{\tilde{\mathbb{U}}^{N}} \big[\Psi \bigl\{ \mathcal{H}(z)  \mathbf{w}(k) - \big[ \mathcal{H}(z) -I\big] \mathbf{y}^{\ast}(k)\bigr\} \big] \\
 &=[1, 0] \Psi^{-1} q_{\tilde{\mathbb{U}}^{N}} \big[\Psi  \mathcal{H}(z)  \mathbf{w}(k) - \Psi  \big[ \mathcal{H}(z) -I\big] \mathbf{y}^{\ast}(k) \big] \\
 &=[1, 0] \Psi^{-1} q_{\tilde{\mathbb{U}}^{N}} \big[\Psi  \mathcal{H}(z) \big( \mathbf{w}(k) - \mathbf{y}^{\ast}(k) \big) + \Psi  \mathbf{y}^{\ast}(k) \big] \\
@@ -875,7 +875,7 @@ H(z) - h_{1}CA(zI-A)^{-1}B & 0 \\ h_{1} H(z) - (h_{1}^{2} - 1) CA (zI-A)^{-1} B 
 \end{bmatrix} \mathbf{w}(k)- \begin{bmatrix}
   - h_{1}CA(zI-A)^{-1}B  & 0 \\  h_{1} ( H(z) - 1)  - (h_{1}^{2} - 1) CA (zI-A)^{-1} B  & 0
 \end{bmatrix} \mathbf{y}^{\ast}(k) \Bigg]
-\end{align*}
+\end{align}
 
 \begin{figure}[!h]
 	\centering
@@ -920,5 +920,21 @@ What is $\bar{e}$ when
     \item the feedback filter is optimal
     \item the feedback filter is implemented in the MPC formulation with horizon length 1, 2, 3, ...
 \end{itemize}
+
+Things to study
+\begin{itemize}
+    \item Need to handle saturation
+    \item What happens when there is a constant noise floor, unaffected by the noise-shaping
+    \item Can we limit the rate
+\end{itemize}
+
+Total noise and distortion:
+$$
+\sigma_t = \sigma_n + \sigma_q
+$$
+
+$$
+\frac{\sigma_s}{\sigma_n + \sigma_q}
+$$
 
 \end{document}

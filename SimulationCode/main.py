@@ -48,7 +48,7 @@ def test_signal(SCALE, MAXAMP, FREQ, Rng,  OFFSET, t):
     return (SCALE/100)*MAXAMP*np.cos(2*np.pi*FREQ*t) + OFFSET  +Rng/2 
     # return (SCALE/100)*MAXAMP*np.cos(2*np.pi*FREQ*t) + OFFSET  
 
-HEADROOM  = 0
+HEADROOM  = 2
 # %% Chose how to compute SINAD
 class sinad_comp:
     CFIT = 1        # curve fitting
@@ -65,14 +65,14 @@ class MHOQ_IMPLEMENTATION:
 MHOQ_METHOD = MHOQ_IMPLEMENTATION.BINARY
 # MHOQ_METHOD = MHOQ_IMPLEMENTATION.SCALED
 # %% Quantiser configurations 
-Qconfig = 2
+Qconfig = 5
 Nb, Mq, Vmin, Vmax, Rng, Qstep, YQ, Qtype = quantiser_configurations(Qconfig)
 # %% Sampling frequency and rate
 Fs = 1e6
 Ts = 1/Fs
 
 # %% Output low-pass filter cutoff order and cutoff frequency
-N_lp = 3
+N_lp = 4
 Fc_lp = 1e5 # cutoff frequency
 # %% Carrier signal
 Xcs_SCALE = 100
@@ -95,10 +95,13 @@ t_end = Np/Xcs_FREQ  # time vector duration
 t = np.arange(0, t_end, Ts)  # time vector
 
 # %% Generate carrier/test signal
-SIGNAL_MAXAMP = Rng/2 - Qstep  # make headroom for noise dither (see below)
+# SIGNAL_MAXAMP = Rng/2 - Qstep  # make headroom for noise dither (see below)
+SIGNAL_MAXAMP = Rng/2
 SIGNAL_OFFSET = -Qstep/2  # try to center given quantiser type
 Xcs = test_signal(Xcs_SCALE, SIGNAL_MAXAMP, Xcs_FREQ, Rng,  SIGNAL_OFFSET, t)
 
+# fig, ax = plt.subplots()
+# ax.plot(t,Xcs)
 # %% Reconstruction filter parameters 
 match 3:
     case 1:
@@ -119,8 +122,8 @@ match 3:
     
     case 3: # LPF derived from optimal NTF Optimal NTF
         # Optimal NTF
-        nsf_num = scipy.io.loadmat('generate_optimal_NSF/NSF_num_100kHz_1MHz_3|2Mueta.mat')
-        nsf_den = scipy.io.loadmat('generate_optimal_NSF/NSF_den_100kHz_1MHz_3|2Mueta.mat')
+        nsf_num = scipy.io.loadmat('generate_optimal_NSF/NSF_num_100kHz_1MHz_3|1Mueta.mat')
+        nsf_den = scipy.io.loadmat('generate_optimal_NSF/NSF_den_100kHz_1MHz_3|1Mueta.mat')
         bn = nsf_num['br']
         an = nsf_den['ar']
 
@@ -149,10 +152,10 @@ match MHOQ_METHOD:
         # MLns = (2**(Nb-1))*MLns  # Measured quantiser levels
         Qstep = 1
 # %% LIN methods on/off
-DIR_ON = True
-DSM_ON = True
+DIR_ON = False
+DSM_ON = False
 NSD_ON = True
-MPC_ON = True
+MPC_ON = False
 
 # %% Quatniser Model
 # Quantiser model: 1 - Ideal , 2- Calibrated
@@ -185,6 +188,9 @@ if NSD_ON:
      
     X = ((100-HEADROOM/2)/100)*Xcs  + (SIGNAL_MAXAMP*(HEADROOM/2))/100 # input
 
+    # fig, ax = plt.subplots()
+    # ax.plot(t,Xcs)
+    # ax.plot(t, X)
     # C_NSD = noise_shaping(Nb, Xcs, bns, ans, Qstep, YQns, MLns, Vmin, QMODEL)  
     C_NSD = nsdcal(X, YQns, MLns, Qstep, Vmin, Nb, QMODEL, AM, BM, CM, DM)
     match QMODEL:

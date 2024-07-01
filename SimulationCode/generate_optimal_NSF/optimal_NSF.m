@@ -11,7 +11,7 @@ Ts = 1/Fs;
 Fc = 1e5;           % cutoff frequency
 Wn = Fc/(Fs/2);
 % Wn = 2*pi*Fc;
-n = 3;              % filter order
+n = 4;              % filter order
 
 [b1,a1] = butter(n, Wn,"low");
 H1  = tf(b1,a1);
@@ -74,8 +74,8 @@ U = [Pf, eye(n); Sf, zeros(n) ];
 
 %% Create dynamic file name to save 
 [N,D] = rat(sqrt(mu_eta));
-NSF_num = sprintf("NSF_num_%dkHz_%dMHz_%d%s%dMUeta",Fc/1e3,Fs/1e6,N,'|',D);
-NSF_den = sprintf("NSF_den_%dkHz_%dMHz_%d%s%dMueta",Fc/1e3,Fs/1e6,N,'|',D);
+NSF_num = sprintf("NSF4_num_%dkHz_%dMHz_%d%s%dMUeta",Fc/1e3,Fs/1e6,N,'|',D);
+NSF_den = sprintf("NSF4_den_%dkHz_%dMHz_%d%s%dMueta",Fc/1e3,Fs/1e6,N,'|',D);
 %% Optimal NTF
 format long
 tol = 1e-22;

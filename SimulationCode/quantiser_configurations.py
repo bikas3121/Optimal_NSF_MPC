@@ -54,7 +54,7 @@ def quantiser_configurations(QConfig):
             sys.exit("Invalid quantiser configuration selected.")
 
     # Qantiser range scaled according to the quantiser levels
-    match 1:
+    match 2:
         case 1:
             Vmin = 0
             Vmax = 2**Nb -1

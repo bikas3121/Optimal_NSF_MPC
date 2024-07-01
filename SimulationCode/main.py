@@ -47,7 +47,7 @@ def test_signal(SCALE, MAXAMP, FREQ, Rng,  OFFSET, t):
     return (SCALE/100)*MAXAMP*np.cos(2*np.pi*FREQ*t) + OFFSET  +Rng/2 
     # return (SCALE/100)*MAXAMP*np.cos(2*np.pi*FREQ*t) + OFFSET  
 
-HEADROOM  = 10
+HEADROOM  = 30
 # %% Chose how to compute SINAD
 class sinad_comp:
     CFIT = 1        # curve fitting
@@ -91,8 +91,8 @@ SIGNAL_MAXAMP = Rng/2 - Qstep  # make headroom for noise dither (see below)
 SIGNAL_OFFSET = -Qstep/2  # try to center given quantiser type
 Xcs = test_signal(Xcs_SCALE, SIGNAL_MAXAMP, Xcs_FREQ, Rng,  SIGNAL_OFFSET, t)
 
-fig, ax = plt.subplots()
-ax.plot(t, Xcs)
+# fig, ax = plt.subplots()
+# ax.plot(t, Xcs)
 
 # %% Reconstruction filter parameters 
 match 3:
@@ -114,8 +114,8 @@ match 3:
     
     case 3: # LPF derived from optimal NTF Optimal NTF
         # Optimal NTF
-        nsf_num = scipy.io.loadmat('generate_optimal_NSF/NSF_num_100kHz_1MHz_10|1Mueta.mat')
-        nsf_den = scipy.io.loadmat('generate_optimal_NSF/NSF_den_100kHz_1MHz_10|1Mueta.mat')
+        nsf_num = scipy.io.loadmat('generate_optimal_NSF/NSF_num_100kHz_1MHz_1000|1Mueta.mat')
+        nsf_den = scipy.io.loadmat('generate_optimal_NSF/NSF_den_100kHz_1MHz_1000|1Mueta.mat')
         bn = nsf_num['br']
         an = nsf_den['ar']
 
@@ -134,8 +134,8 @@ YQns = YQ
 # Measured quantiser levels
 MLns = get_measured_levels(Qconfig)
 # %% LIN methods on/off
-DIR_ON = True
-DSM_ON = True
+DIR_ON = False
+DSM_ON = False
 NSD_ON = True
 MPC_ON = False
 
@@ -171,7 +171,7 @@ if NSD_ON:
             an = b
             AM,BM,CM,DM = signal.tf2ss(bn,an)
      
-    X = ((100-HEADROOM)/100)*Xcs  # input
+    X = ((100-HEADROOM/2)/100)*Xcs  + (SIGNAL_MAXAMP*(HEADROOM/2))/100 # input
 
     # C_NSD = noise_shaping(Nb, Xcs, bns, ans, Qstep, YQns, MLns, Vmin, QMODEL)  
     C_NSD = nsdcal(X, YQns, MLns, Qstep, Vmin, Nb, QMODEL, AM, BM, CM, DM)
@@ -182,7 +182,9 @@ if NSD_ON:
             Xcs_NSD = generate_dac_output(C_NSD, MLns) 
 
     Q_NSD = (Xcs - Xcs_NSD ).squeeze()
-
+# fig, ax = plt.subplots()
+# ax.plot(t, Xcs)
+# ax.plot(t, X)
 # %% MPC : Prediction horizon
 N = 2
 if MPC_ON:

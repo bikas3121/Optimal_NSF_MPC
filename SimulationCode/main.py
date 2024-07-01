@@ -20,6 +20,7 @@ from DirectQantization import quantise_signal, generate_code, generate_dac_outpu
 from  quantiser_configurations import quantiser_configurations, get_measured_levels
 
 from MHOQ import MHOQ
+from MHOQ_BIN import MHOQ_BIN
 from nsdcal import nsdcal, noise_shaping
 from dsm import dsm
 
@@ -47,7 +48,7 @@ def test_signal(SCALE, MAXAMP, FREQ, Rng,  OFFSET, t):
     return (SCALE/100)*MAXAMP*np.cos(2*np.pi*FREQ*t) + OFFSET  +Rng/2 
     # return (SCALE/100)*MAXAMP*np.cos(2*np.pi*FREQ*t) + OFFSET  
 
-HEADROOM  = 30
+HEADROOM  = 0
 # %% Chose how to compute SINAD
 class sinad_comp:
     CFIT = 1        # curve fitting
@@ -56,8 +57,15 @@ class sinad_comp:
 # Choose sinad computation method
 SINAD_COMP_SEL = sinad_comp.CFIT
 # SINAD_COMP_SEL = sinad_comp.FFT
+
+# %% Choose MHOQ implemetatio method
+class MHOQ_IMPLEMENTATION:
+    BINARY = 1
+    SCALED = 2
+MHOQ_METHOD = MHOQ_IMPLEMENTATION.BINARY
+# MHOQ_METHOD = MHOQ_IMPLEMENTATION.SCALED
 # %% Quantiser configurations 
-Qconfig = 5
+Qconfig = 2
 Nb, Mq, Vmin, Vmax, Rng, Qstep, YQ, Qtype = quantiser_configurations(Qconfig)
 # %% Sampling frequency and rate
 Fs = 1e6
@@ -91,9 +99,6 @@ SIGNAL_MAXAMP = Rng/2 - Qstep  # make headroom for noise dither (see below)
 SIGNAL_OFFSET = -Qstep/2  # try to center given quantiser type
 Xcs = test_signal(Xcs_SCALE, SIGNAL_MAXAMP, Xcs_FREQ, Rng,  SIGNAL_OFFSET, t)
 
-# fig, ax = plt.subplots()
-# ax.plot(t, Xcs)
-
 # %% Reconstruction filter parameters 
 match 3:
     case 1:
@@ -114,30 +119,40 @@ match 3:
     
     case 3: # LPF derived from optimal NTF Optimal NTF
         # Optimal NTF
-        nsf_num = scipy.io.loadmat('generate_optimal_NSF/NSF_num_100kHz_1MHz_1000|1Mueta.mat')
-        nsf_den = scipy.io.loadmat('generate_optimal_NSF/NSF_den_100kHz_1MHz_1000|1Mueta.mat')
+        nsf_num = scipy.io.loadmat('generate_optimal_NSF/NSF_num_100kHz_1MHz_3|2Mueta.mat')
+        nsf_den = scipy.io.loadmat('generate_optimal_NSF/NSF_den_100kHz_1MHz_3|2Mueta.mat')
         bn = nsf_num['br']
         an = nsf_den['ar']
 
         # Corresponding LPF
         b = an.squeeze()
         a = bn.squeeze()
-        # b = np.array([1.000000000000000,  -0.002620412615210,   0.333346713132052,  -0.000221418094866])
-        # a = np.array([1.000000000000000 , -1.760067202391505 ,  1.182955682925048,  -0.278095097319369])
 
 A1, B1, C1, D1 = signal.tf2ss(b,a) # Transfer function to StateSpace
 A, B, C, D = balreal(A1, B1, C1, D1)
 e, v = np.linalg.eig(A)
 # %% Quantiser levels : Ideal and Measured
-# Ideal quantiser levels
 YQns = YQ     
-# Measured quantiser levels
 MLns = get_measured_levels(Qconfig)
+
+match MHOQ_METHOD:
+    case 1: #ORIGINAL SIGNAL
+        Xcs = Xcs
+        YQns = YQ # Ideal quantiser levels
+        MLns = get_measured_levels(Qconfig)  # Measured quantiser levels
+        Qstep = Qstep
+    case 2: # SCALED-to-DAC QUANTISATION LEVELS SINGAL
+        Xcs = Xcs/Qstep
+        YQns = YQ/Qstep
+        MLns = MLns/Qstep
+        # YQns = (2**(Nb-1))*YQns # Ideal quantiser levels
+        # MLns = (2**(Nb-1))*MLns  # Measured quantiser levels
+        Qstep = 1
 # %% LIN methods on/off
-DIR_ON = False
-DSM_ON = False
+DIR_ON = True
+DSM_ON = True
 NSD_ON = True
-MPC_ON = False
+MPC_ON = True
 
 # %% Quatniser Model
 # Quantiser model: 1 - Ideal , 2- Calibrated
@@ -160,9 +175,6 @@ if DSM_ON:
         case 2:
             Xcs_DSM = generate_dac_output(C_DSM, MLns)
 
-# fig, ax = plt.subplots()
-# ax.plot(t, Xcs)
-# ax.plot(t, Xcs_DIR.squeeze())
 # %% NSD CAL
 if NSD_ON:
     match 1:
@@ -182,34 +194,24 @@ if NSD_ON:
             Xcs_NSD = generate_dac_output(C_NSD, MLns) 
 
     Q_NSD = (Xcs - Xcs_NSD ).squeeze()
-# fig, ax = plt.subplots()
-# ax.plot(t, Xcs)
-# ax.plot(t, X)
 # %% MPC : Prediction horizon
-N = 2
+N = 3
 if MPC_ON:
-    match 1:
-        case 1:
-            AH = A
-            BH = B
-            CH = C
-            DH = D
-        # case 2:
-        #     AH = np.array([[1.760067202088132,  -1.182955682489591,   0.278095097117740], [1.0, 0, 0], [0, 1.0 , 0]])
-        #     BH = np.array([[1], [0], [0]])
-        #     CH = np.array([1.757446789736872,  -0.849608969382354,   0.277873679062878]) 
-        #     DH = np.array([1])
-    # #%% Numerical MPC: Solving MHOQ numerically using Gurobi MILP formulation 
-    MHOQ = MHOQ(Nb, Qstep, QMODEL, AH, BH, CH, DH)
-    # Get Codes
-    C_MHOQ, Q_MPC1 = MHOQ.get_codes(N, Xcs, YQns, MLns)
+    match MHOQ_METHOD:  # #%% Numerical MPC: Solving MHOQ numerically using Gurobi MILP formulation 
+        case 1:  # Binary formulation
+            MHOQ_BIN = MHOQ_BIN(Nb, Qstep, QMODEL, A, B, C, D)
+            C_MHOQ = MHOQ_BIN.get_codes(N, Xcs, YQns, MLns)
+
+        case 2: # Scaled 
+            MHOQ = MHOQ(Nb, Qstep, QMODEL, A, B, C, D)
+            C_MHOQ, Q_MPC1 = MHOQ.get_codes(N, Xcs, YQns, MLns)
     match QMODEL:
         case 1:
             Xcs_MHOQ = generate_dac_output(C_MHOQ, YQns)
         case 2:
-            Xcs_MHOQ = generate_dac_output(C_MHOQ, MLns)
-    
+            Xcs_MHOQ = generate_dac_output(C_MHOQ, MLns) 
     Q_MPC = Xcs[0:len(Xcs)-N] - Xcs_MHOQ
+
 # %% Signal Processing
 tm = t[:Xcs.size - N]
 

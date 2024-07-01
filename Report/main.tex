@@ -775,6 +775,21 @@ Consider a third order Butterworth filter with $Fc = 100 \mathit{kHz}$ and $Fs =
 \end{table}
 
 
+\subsubsection*{Simualtion Results: Binary-MHOQ Formulation}
+
+\begin{table}[!h]
+\caption{ENOB obtained for different methods with nonlinear quantisation models. Optimal NTF solved for second order butterworth filter with $Fc = 100 \mathit{kHz}$ and $Fs = 1 \mathit{Mhz}$.}
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|}
+	\hline
+	ENOB/ Methods & Direct & DSM & NSD (Optimal) & MPC $(N = 1)$ [Time (s)] & MPC $(N= 2)$[Time (s)] & MPC $(N= 3)$  \\
+        \hline
+        6-bit (BINARY) & 6.693 & 8.322 & 9.051  & 9.051 [$\approx 880$ s] & 9.135 [$\approx 3820$ s] & - \\
+        \hline
+        6-bit (SCALED) & 6.693 & 8.322 & 9.051  & 9.051 [$\approx 120$ s] & 9.093 [$\approx 380$ s]&  9.141 [$\approx 450$ s]\\
+         \hline
+	\end{tabular}		
+\end{table}
 \section{Closed Form Solution:}
 Let $N$ be the prediction horizon of the moving horizon implementation and $\mathbb{U}$ the quantisation levels. The $N$th power cartesian product of the set $\mathbb{U}$ for $N$ is defined as  $\mathbb{U}^{N}:= \mathbb{U} \ldots \times \ldots \mathbb{U}$. Let $n_{\mathbb{U}}$ represent the number of element in the set $\mathbb{U}$ i.e., number of quantisation levels, then the number of elements on the set $\mathbb{U}^{N}$ is $n_{\mathbb{U}}^{N}$. Also, let $v_{i}, i = \{1, 2, \ldots, n_{\mathbb{U}}^{N}\}$ represent the elements of the set $\mathbb{U}^{N}$. Then, the closed form solution of the moving horizon implementation of the optimisation problem \eqref{eq:optobj1}-\eqref{eq:optconst3} is 
 \begin{equation}

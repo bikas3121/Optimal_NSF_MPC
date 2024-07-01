@@ -953,5 +953,19 @@ What is $\bar{e}$ when
     \item the feedback filter is optimal
     \item the feedback filter is implemented in the MPC formulation with horizon length 1, 2, 3, ...
 \end{itemize}
+Things to study
+\begin{itemize}
+    \item Need to handle saturation
+    \item What happens when there is a constant noise floor, unaffected by the noise-shaping
+    \item Can we limit the rate
+\end{itemize}
 
+Total noise and distortion:
+$$
+\sigma_t = \sigma_n + \sigma_q
+$$
+
+$$
+\frac{\sigma_s}{\sigma_n + \sigma_q}
+$$
 \end{document}

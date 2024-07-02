@@ -790,6 +790,19 @@ Consider a third order Butterworth filter with $Fc = 100 \mathit{kHz}$ and $Fs =
          \hline
 	\end{tabular}		
 \end{table}
+
+\section{Switching Frequency Minimization}
+The optimization problem \eqref{eq:optobj1}-\eqref{eq:optconst3} can be reformulated as an optimization problem with the binary variables. Let $\mathcal{B}$ be the number of bits.  $b_{i} = \{0,1\}$ and $Q_{i}$ $, i = \{0, 1, \ldots, 2^{\mathcal{B}}-1\}$, be the binary variables and quantisation levels, respectively. 
+\begin{align}
+		& y^{\ast}(t) = \arg  \min_{y(t) }	V_{N}  = \sum_{t=k}^{k+N-1} e^{2}(t) + \beta \mathcal{N}_{s}\label{eq:optobj121}\\
+		\intertext{subject to}
+		&x(t+1) = A x(t) + B (w(t)-y(t))	\label{eq:optconst122}	\\
+		&e(t) = Cx(t) + (w(t)-y(t))	\label{eq:optconst223}	\\
+		&y(t) = \sum_{i = 0}^{2^{\mathcal{B}}-1} Q_{i}b_{i}(t), \quad \sum_{i = 0}^{2^{\mathcal{B}}-1}b_{i}(t)  =1, \quad b_{i} = \{0,1\}. \label{eq:optconst324} \\
+		&\mathcal{N}_{s} = \sum_{i = 0}^{2^{\mathcal{B}-1}} |b_{i}(t) - b_{i}(t-1)|
+	\end{align}
+	where $b_{t-1}$ is the state of the switch $i$ at the previous sampling period and $b_{i}(t)$ is the sate of switch $i$ at the current state and $\beta$ is the weighting factor. 
+
 \section{Closed Form Solution:}
 Let $N$ be the prediction horizon of the moving horizon implementation and $\mathbb{U}$ the quantisation levels. The $N$th power cartesian product of the set $\mathbb{U}$ for $N$ is defined as  $\mathbb{U}^{N}:= \mathbb{U} \ldots \times \ldots \mathbb{U}$. Let $n_{\mathbb{U}}$ represent the number of element in the set $\mathbb{U}$ i.e., number of quantisation levels, then the number of elements on the set $\mathbb{U}^{N}$ is $n_{\mathbb{U}}^{N}$. Also, let $v_{i}, i = \{1, 2, \ldots, n_{\mathbb{U}}^{N}\}$ represent the elements of the set $\mathbb{U}^{N}$. Then, the closed form solution of the moving horizon implementation of the optimisation problem \eqref{eq:optobj1}-\eqref{eq:optconst3} is 
 \begin{equation}

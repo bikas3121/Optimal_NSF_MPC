@@ -67,13 +67,13 @@ Xcs_FREQ = 999
 
 # %% Generate time vector
 
-match 1:
+match 2:
     case 1:  # specify duration as number of samples and find number of periods
         Nts = 1e5  # no. of time samples
         Np = np.ceil(Xcs_FREQ*Ts*Nts).astype(int) # no. of periods for carrier
 
     case 2:  # specify duration as number of periods of carrier
-        Np = 5 # no. of periods for carrier
+        Np = 20 # no. of periods for carrier
         
 Npt = 1  # no. of carrier periods to use to account for transients
 Np = Np + Npt
@@ -132,6 +132,7 @@ C_Store = []
 # Loop length
 len_MPC = Xcs.size - N_PRED
 
+# len_MPC = 1
 # State dimension
 x_dim =  int(A.shape[0]) 
 
@@ -145,7 +146,9 @@ for j in tqdm.tqdm(range(len_MPC)):
     m = gp.Model("MPC- INL")
     u = m.addMVar((2**Nb, N_PRED), vtype=GRB.BINARY, name= "u") # control variable
     x = m.addMVar((x_dim*(N_PRED+1),1), vtype= GRB.CONTINUOUS, lb = -GRB.INFINITY, ub = GRB.INFINITY, name = "x")  # State varible 
-
+    Ns = m.addMVar((1,1), lb = 0,  name = "ns")
+    w = m.addMVar((2**Nb,1), vtype= GRB.BINARY,  name="w")
+    v = m.addMVar((2**Nb,1), vtype= GRB.BINARY,  name="v")
 
     # Add objective function
     Obj = 0
@@ -171,15 +174,24 @@ for j in tqdm.tqdm(range(len_MPC)):
         # Binary varialble constraint
         consi = gp.quicksum(u[:,i]) 
         m.addConstr(consi == 1)
+        # m.update
 
-    if SWITCH_MIN: 
+        # u_kminus1 = u_kminus1_init
+        # Sw = u[:,i].reshape(-1,1)- u_kminus1[:,i].reshape(-1,1)
+        # for k in range(0, 2**Nb): 
+        #     m.addConstr(v[k,i]== u[k,i]- u_kminus1[k,i])  
+        #     m.addConstr(w[k,i]== gp.abs_(v[k,i]))
+        #     m.addConstr(Ns == w.sum())
+
+    # if SWITCH_MIN: 
         u_kminus1 = u_kminus1_init
-        # Sw1 =  u[:,i].reshape(1,-1) - u_kminus1[:,i].reshape(1,-1)
         Sw2 =  u[:,i].reshape(-1,1) - u_kminus1[:,i].reshape(-1,1)
         Ns = 0
         for i in range(0, Sw2.size):
             Ns = Ns + Sw2[i,0]* Sw2[i,0]
-        Obj = Obj + 0.1*Ns
+            # Ns = Ns + gp.abs_(Sw2[i,0])
+        Obj = Obj + 100*Ns
+
 
     m.update
     # Set Gurobi objective
@@ -236,9 +248,11 @@ for i in range(1, Xcs_MHOQ.size):
         S_counter += 1
 print("Total number of switches:",S_counter)
 # # %%
+sl = 400
 fig, ax = plt.subplots()
-ax.plot(t, Xcs.squeeze())
-ax.plot(t[0:C_MHOQ.size], C_MHOQ.squeeze())
+ax.plot(t[0:sl], Xcs.squeeze()[0:sl])
+ax.plot(t[0:sl], C_MHOQ.squeeze()[0:sl])
+ax.grid()
 # %%
 tm = t[:Xcs.size - N_PRED]
 

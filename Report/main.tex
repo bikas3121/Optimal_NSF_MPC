@@ -805,7 +805,22 @@ The optimization problem \eqref{eq:optobj1}-\eqref{eq:optconst3} can be reformul
 
 
 \begin{table}[!h]
-\caption{Simulation Results}
+\caption{Simulation Results: Carrier Frequency $ 999 Hz$}
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|}
+	\hline
+	  Weighting Factor ($\beta$) & 0 & 0.1 & 0.5 & 1 & 5 & 10 & 100  \\
+        \hline
+        ENOB & 9.392  & 9.374  & 8.694  &  8.036 & 6.574  & 6.080 & 4.000 \\
+        \hline
+        Total number of switches (/21021) & 16238 & 15213 & 13875 &13233  &11582 &10912 & 9376 \\
+         \hline
+	\end{tabular}		
+\end{table}
+
+
+\begin{table}[!h]
+\caption{Simulation Results: Carrier Frequency $ 99 Hz$}
 	\centering
 	\begin{tabular}{|c|c|c|c|c|c|c|c|}
 	\hline
@@ -816,10 +831,58 @@ The optimization problem \eqref{eq:optobj1}-\eqref{eq:optconst3} can be reformul
         Total number of switches & 78378 & &  &  & & & \\
          \hline
 	\end{tabular}		
-
-
-
 \end{table}
+
+% \begin{figure}[!h]
+% 	\centering
+% 	\begin{minipage}{0.45\linewidth}
+% 		\centering
+% 		\includegraphics[scale = 0.58]{timeplots/sig_999_beta_00.png}
+% 		\caption{$\beta = 0$}
+%         \label{fig:direct_psd}
+% 	\end{minipage}
+% 	\hfil
+% 	\begin{minipage}{0.45\linewidth}
+% 		\centering
+% 		\includegraphics[scale = 0.6]{timeplots/sig_999_beta_01.png}
+% 		\caption{$\beta = 0.1$}
+%    \label{fig:dsm_psd}
+% 	\end{minipage}
+% \end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\begin{minipage}{0.45\linewidth}
+		\centering
+		\includegraphics[scale = 0.58]{timeplots/sig_999_beta_00_300s.png}
+		\caption{$\beta = 0$}
+        \label{fig:direct_psd}
+	\end{minipage}
+	\hfil
+	\begin{minipage}{0.45\linewidth}
+		\centering
+		\includegraphics[scale = 0.6]{timeplots/sig_999_beta_01_300s.png}
+		\caption{$\beta = 0.1$}
+   \label{fig:dsm_psd}
+	\end{minipage}
+\end{figure}
+\begin{figure}[!h]
+	\centering
+	\begin{minipage}{0.45\linewidth}
+		\centering
+		\includegraphics[scale = 0.58]{timeplots/sig_999_beta_10_300s.png}
+		\caption{$\beta = 10$}
+        \label{fig:direct_psd}
+	\end{minipage}
+	\hfil
+	\begin{minipage}{0.45\linewidth}
+		\centering
+		\includegraphics[scale = 0.6]{timeplots/sig_999_beta_100_300s.png}
+		\caption{$\beta = 100$}
+   \label{fig:dsm_psd}
+	\end{minipage}
+\end{figure}
+\newpage
 \section{Closed Form Solution:}
 Let $N$ be the prediction horizon of the moving horizon implementation and $\mathbb{U}$ the quantisation levels. The $N$th power cartesian product of the set $\mathbb{U}$ for $N$ is defined as  $\mathbb{U}^{N}:= \mathbb{U} \ldots \times \ldots \mathbb{U}$. Let $n_{\mathbb{U}}$ represent the number of element in the set $\mathbb{U}$ i.e., number of quantisation levels, then the number of elements on the set $\mathbb{U}^{N}$ is $n_{\mathbb{U}}^{N}$. Also, let $v_{i}, i = \{1, 2, \ldots, n_{\mathbb{U}}^{N}\}$ represent the elements of the set $\mathbb{U}^{N}$. Then, the closed form solution of the moving horizon implementation of the optimisation problem \eqref{eq:optobj1}-\eqref{eq:optconst3} is 
 \begin{equation}

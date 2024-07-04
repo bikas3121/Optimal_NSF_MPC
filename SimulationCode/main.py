@@ -65,14 +65,14 @@ class MHOQ_IMPLEMENTATION:
 MHOQ_METHOD = MHOQ_IMPLEMENTATION.BINARY
 # MHOQ_METHOD = MHOQ_IMPLEMENTATION.SCALED
 # %% Quantiser configurations 
-Qconfig = 5
+Qconfig = 1
 Nb, Mq, Vmin, Vmax, Rng, Qstep, YQ, Qtype = quantiser_configurations(Qconfig)
 # %% Sampling frequency and rate
 Fs = 1e6
 Ts = 1/Fs
 
 # %% Output low-pass filter cutoff order and cutoff frequency
-N_lp = 4
+N_lp = 3
 Fc_lp = 1e5 # cutoff frequency
 # %% Carrier signal
 Xcs_SCALE = 100
@@ -154,8 +154,8 @@ match MHOQ_METHOD:
 # %% LIN methods on/off
 DIR_ON = False
 DSM_ON = False
-NSD_ON = True
-MPC_ON = False
+NSD_ON = False
+MPC_ON = True
 
 # %% Quatniser Model
 # Quantiser model: 1 - Ideal , 2- Calibrated
@@ -201,7 +201,7 @@ if NSD_ON:
 
     Q_NSD = (Xcs - Xcs_NSD ).squeeze()
 # %% MPC : Prediction horizon
-N = 3
+N = 1
 if MPC_ON:
     match MHOQ_METHOD:  # #%% Numerical MPC: Solving MHOQ numerically using Gurobi MILP formulation 
         case 1:  # Binary formulation

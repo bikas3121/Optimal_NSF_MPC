@@ -9,6 +9,7 @@ import numpy as np
 import os
 import scipy
 import csv
+import sys
 
 
 # Quantiser type

@@ -803,7 +803,7 @@ The optimization problem \eqref{eq:optobj1}-\eqref{eq:optconst3} can be reformul
 	\end{align}
 	where $b_{i}(t-1)$ is the state of the switch $i$ at the previous sampling period and $b_{i}(t)$ is the sate of switch $i$ at the current state and $\beta$ is the weighting factor. 
 
-
+\newpage
 \begin{table}[!h]
 \caption{Simulation Results: Carrier Frequency $ 999 Hz$}
 	\centering
@@ -819,19 +819,6 @@ The optimization problem \eqref{eq:optobj1}-\eqref{eq:optconst3} can be reformul
 \end{table}
 
 
-\begin{table}[!h]
-\caption{Simulation Results: Carrier Frequency $ 99 Hz$}
-	\centering
-	\begin{tabular}{|c|c|c|c|c|c|c|c|}
-	\hline
-	  Weighting Factor ($\beta$) & 0 & 0.1 & 0.5 & 1 & 5 & 10 & 100  \\
-        \hline
-        ENOB & 9.409  &  &   &   &  & - & \\
-        \hline
-        Total number of switches & 78378 & &  &  & & & \\
-         \hline
-	\end{tabular}		
-\end{table}
 
 % \begin{figure}[!h]
 % 	\centering
@@ -854,15 +841,15 @@ The optimization problem \eqref{eq:optobj1}-\eqref{eq:optconst3} can be reformul
 	\centering
 	\begin{minipage}{0.45\linewidth}
 		\centering
-		\includegraphics[scale = 0.58]{timeplots/sig_999_beta_00_300s.png}
-		\caption{$\beta = 0$}
+		\includegraphics[scale = 0.58]{timeplots/999Hz/sig_999_beta_00_300s.png}
+		\caption{Carrier frequency: $999 Hz, \beta = 0$}
         \label{fig:direct_psd}
 	\end{minipage}
 	\hfil
 	\begin{minipage}{0.45\linewidth}
 		\centering
-		\includegraphics[scale = 0.6]{timeplots/sig_999_beta_01_300s.png}
-		\caption{$\beta = 0.1$}
+		\includegraphics[scale = 0.6]{timeplots/999Hz/sig_999_beta_01_300s.png}
+		\caption{Carrier frequency: $999 Hz, \beta = 0.1$}
    \label{fig:dsm_psd}
 	\end{minipage}
 \end{figure}
@@ -870,18 +857,67 @@ The optimization problem \eqref{eq:optobj1}-\eqref{eq:optconst3} can be reformul
 	\centering
 	\begin{minipage}{0.45\linewidth}
 		\centering
-		\includegraphics[scale = 0.58]{timeplots/sig_999_beta_10_300s.png}
-		\caption{$\beta = 10$}
+		\includegraphics[scale = 0.58]{timeplots/999Hz/sig_999_beta_10_300s.png}
+		\caption{Carrier frequency: $999 Hz, \beta = 10$}
         \label{fig:direct_psd}
 	\end{minipage}
 	\hfil
 	\begin{minipage}{0.45\linewidth}
 		\centering
-		\includegraphics[scale = 0.6]{timeplots/sig_999_beta_100_300s.png}
-		\caption{$\beta = 100$}
+		\includegraphics[scale = 0.6]{timeplots/999Hz/sig_999_beta_100_300s.png}
+		\caption{Carrier frequency: $999 Hz, \beta = 100$}
    \label{fig:dsm_psd}
 	\end{minipage}
 \end{figure}
+
+
+\newpage
+\begin{table}[!h]
+\caption{Simulation Results: Carrier Frequency $ 99 Hz$}
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|}
+	\hline
+	  Weighting Factor ($\beta$) & 0 & 0.1 & 0.5 & 1 & 5 & 10 & 100  \\
+        \hline
+        ENOB & 7.802  & 7.716 & 7.209  &  6.730 & 5.704  & 5.222 & 3.56 \\
+        \hline
+        Total number of switches (/40404) & 30987 & 28909 & 25392 & 24937  & 19577 & 19205 & 15953 \\
+         \hline
+	\end{tabular}		
+\end{table}
+\begin{figure}[!h]
+	\centering
+	\begin{minipage}{0.45\linewidth}
+		\centering
+		\includegraphics[scale = 0.58]{timeplots/99Hz/sig_99_beta_00_2000s.png}
+		\caption{Carrier frequency: $99 Hz, \beta = 0$}
+        \label{fig:direct_psd}
+	\end{minipage}
+	\hfil
+	\begin{minipage}{0.45\linewidth}
+		\centering
+		\includegraphics[scale = 0.6]{timeplots/99Hz/sig_99_beta_01_2000s.png}
+		\caption{Carrier frequency: $999 Hz, \beta = 0.1$}
+   \label{fig:dsm_psd}
+	\end{minipage}
+\end{figure}
+\begin{figure}[!h]
+	\centering
+	\begin{minipage}{0.45\linewidth}
+		\centering
+		\includegraphics[scale = 0.58]{timeplots/99Hz/sig_99_beta_10_2000s.png}
+		\caption{Carrier frequency: $999 Hz, \beta = 10$}
+        \label{fig:direct_psd}
+	\end{minipage}
+	\hfil
+	\begin{minipage}{0.45\linewidth}
+		\centering
+		\includegraphics[scale = 0.6]{timeplots/99Hz/sig_99_beta_100_2000s.png}
+		\caption{Carrier frequency: $999 Hz, \beta = 100$}
+   \label{fig:dsm_psd}
+	\end{minipage}
+\end{figure}
+
 \newpage
 \section{Closed Form Solution:}
 Let $N$ be the prediction horizon of the moving horizon implementation and $\mathbb{U}$ the quantisation levels. The $N$th power cartesian product of the set $\mathbb{U}$ for $N$ is defined as  $\mathbb{U}^{N}:= \mathbb{U} \ldots \times \ldots \mathbb{U}$. Let $n_{\mathbb{U}}$ represent the number of element in the set $\mathbb{U}$ i.e., number of quantisation levels, then the number of elements on the set $\mathbb{U}^{N}$ is $n_{\mathbb{U}}^{N}$. Also, let $v_{i}, i = \{1, 2, \ldots, n_{\mathbb{U}}^{N}\}$ represent the elements of the set $\mathbb{U}^{N}$. Then, the closed form solution of the moving horizon implementation of the optimisation problem \eqref{eq:optobj1}-\eqref{eq:optconst3} is 

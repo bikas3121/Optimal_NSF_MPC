@@ -63,17 +63,17 @@ N_lp = 3
 Fc_lp = 1e5 # cutoff frequency
 # %% Carrier signal
 Xcs_SCALE = 100
-Xcs_FREQ = 999
+Xcs_FREQ = 99
 
 # %% Generate time vector
 
-match 2:
+match 1:
     case 1:  # specify duration as number of samples and find number of periods
         Nts = 1e5  # no. of time samples
         Np = np.ceil(Xcs_FREQ*Ts*Nts).astype(int) # no. of periods for carrier
 
     case 2:  # specify duration as number of periods of carrier
-        Np = 20 # no. of periods for carrier
+        Np = 3 # no. of periods for carrier
         
 Npt = 1  # no. of carrier periods to use to account for transients
 Np = Np + Npt
@@ -190,7 +190,7 @@ for j in tqdm.tqdm(range(len_MPC)):
         for i in range(0, Sw2.size):
             Ns = Ns + Sw2[i,0]* Sw2[i,0]
             # Ns = Ns + gp.abs_(Sw2[i,0])
-        Obj = Obj + 100*Ns
+        Obj = Obj + 0*Ns
 
 
     m.update
@@ -248,7 +248,8 @@ for i in range(1, Xcs_MHOQ.size):
         S_counter += 1
 print("Total number of switches:",S_counter)
 # # %%
-sl = 400
+# sl = C_MHOQ.size
+sl = 2000
 fig, ax = plt.subplots()
 ax.plot(t[0:sl], Xcs.squeeze()[0:sl])
 ax.plot(t[0:sl], C_MHOQ.squeeze()[0:sl])

@@ -190,7 +190,7 @@ for j in tqdm.tqdm(range(len_MPC)):
         for i in range(0, Sw2.size):
             Ns = Ns + Sw2[i,0]* Sw2[i,0]
             # Ns = Ns + gp.abs_(Sw2[i,0])
-        Obj = Obj + 0*Ns
+        Obj = Obj + 100*Ns
 
 
     m.update

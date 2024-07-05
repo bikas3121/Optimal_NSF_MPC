@@ -1,13 +1,13 @@
 # Fdb version 3
-["bibtex main"] 1720173195 "main.aux" "main.bbl" "main" 1720173609
+["bibtex main"] 1720185180 "main.aux" "main.bbl" "main" 1720185181
   "/usr/local/texlive/2022/texmf-dist/bibtex/bst/base/unsrt.bst" 1292289607 18030 1376b4b231b50c66211e47e42eda2875 ""
-  "main.aux" 1720173608 16524 628c2ae6875ff1c781173f438e6a61eb "pdflatex"
+  "main.aux" 1720185181 16591 1ebd5615d419ff3346badc524c28bfb7 "pdflatex"
   "references_new.bib" 1718609593 12148 d20f3451ed69868ec099282bb4933367 ""
   (generated)
   "main.bbl"
   "main.blg"
-["pdflatex"] 1720173607 "/Volumes/Work/Reports-MPC/Tuning_MPC_with_OptNSF/Report/main.tex" "main.pdf" "main" 1720173609
-  "/Volumes/Work/Reports-MPC/Tuning_MPC_with_OptNSF/Report/main.tex" 1720173607 44927 fc237f6006680d41c3663085e84aeceb ""
+["pdflatex"] 1720185180 "/Volumes/Work/Reports-MPC/Tuning_MPC_with_OptNSF/Report/main.tex" "main.pdf" "main" 1720185181
+  "/Volumes/Work/Reports-MPC/Tuning_MPC_with_OptNSF/Report/main.tex" 1720185178 47676 2468710bdac93df6b8536339f163753b ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -146,6 +146,7 @@
   "/usr/local/texlive/2022/texmf-dist/tex/latex/natbib/natbib.sty" 1291685959 45456 1c8843383c0bd05870c45fa0ebea6cc2 ""
   "/usr/local/texlive/2022/texmf-dist/tex/latex/refcount/refcount.sty" 1576624809 9878 9e94e8fa600d95f9c7731bb21dfb67a4 ""
   "/usr/local/texlive/2022/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty" 1575674187 9715 b051d5b493d9fe5f4bc251462d039e5f ""
+  "/usr/local/texlive/2022/texmf-dist/tex/latex/tools/array.sty" 1636758526 12694 6c23725d50ab9d1e2d3ce482c58ffcf3 ""
   "/usr/local/texlive/2022/texmf-dist/tex/latex/tools/longtable.sty" 1636758526 12892 3ffe092fc7f5d1cb9866f1bcb071d0d6 ""
   "/usr/local/texlive/2022/texmf-dist/tex/latex/url/url.sty" 1388531844 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "/usr/local/texlive/2022/texmf-dist/tex/latex/wrapfig/wrapfig.sty" 1137111090 26220 3701aebf80ccdef248c0c20dd062fea9 ""
@@ -163,11 +164,11 @@
   "figures/nsd_mhoq_implementation_N2.pdf" 1719561407 11160 6abc33f9ae48e4c3f0ddf1f6d7148b20 ""
   "figures/nsq_error_feedback.pdf" 1718714934 8412 52d26335b9e280e8c7c031eeaf9855fd ""
   "figures/quantizer_additive_model.pdf" 1719227685 2843 84e469c83fc442e9e9782bab6aa8cd05 ""
-  "main.aux" 1720173608 16524 628c2ae6875ff1c781173f438e6a61eb "pdflatex"
-  "main.bbl" 1720173195 953 cb644e57a0d2fd4e8686c568df71fa3a "bibtex main"
-  "main.out" 1720173608 4716 dbf19ade35937dbc26a8146ab75049a2 "pdflatex"
-  "main.tex" 1720173607 44927 fc237f6006680d41c3663085e84aeceb ""
-  "main.toc" 1720173608 2217 03df483c7e05ef65bef875b0e7a3aabd "pdflatex"
+  "main.aux" 1720185181 16591 1ebd5615d419ff3346badc524c28bfb7 "pdflatex"
+  "main.bbl" 1720185180 953 cb644e57a0d2fd4e8686c568df71fa3a "bibtex main"
+  "main.out" 1720185181 4716 dbf19ade35937dbc26a8146ab75049a2 "pdflatex"
+  "main.tex" 1720185178 47676 2468710bdac93df6b8536339f163753b ""
+  "main.toc" 1720185181 2217 03df483c7e05ef65bef875b0e7a3aabd "pdflatex"
   "mat_plots/NO_butter_3_100khz_1Mhz_27_06_2024.eps" 1719485756 405335 e6b83cd6acaa0ee53e4e6da04f2637bf ""
   "mat_plots/O_butter_3_100khz_1Mhz_27_06_2024.eps" 1719485771 415002 532b80b1ef402d88bfec0e1ed7df5bb2 ""
   "plots/quant_err_butter_2nd_100k_10mhz_inl.eps" 1715590407 297226 ad8c5d01559a6172bcd4305975cb9bfb ""

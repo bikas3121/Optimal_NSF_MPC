@@ -14,6 +14,7 @@
 \usepackage{amssymb}
 \usepackage{capt-of}
 \usepackage{natbib}
+\usepackage{array}
 %\usepackage{subfigure}
 \usepackage{subcaption}
 \usepackage[linktocpage,pdfstartview=FitH,colorlinks,
@@ -804,21 +805,34 @@ The optimization problem \eqref{eq:optobj1}-\eqref{eq:optconst3} can be reformul
 	where $b_{i}(t-1)$ is the state of the switch $i$ at the previous sampling period and $b_{i}(t)$ is the sate of switch $i$ at the current state and $\beta$ is the weighting factor. 
 
 \newpage
-\begin{table}[!h]
-\caption{Simulation Results: Carrier Frequency $ 999 Hz$}
+% \begin{table}[thb]
+% \caption{Simulation Results: Carrier Frequency $ 999 Hz$}
+% 	\centering
+% 	\begin{tabular}{|c|c|c|c|c|c|c|c|}
+% 	\hline
+% 	  Weighting Factor ($\beta$) & 0 & 0.1 & 0.5 & 1 & 5 & 10 & 100  \\
+%         \hline
+%         ENOB & 9.392  & 9.374  & 8.694  &  8.036 & 6.574  & 6.080 & 4.000 \\
+%         \hline
+% 		Total number  of   switches  (/21021)
+% 		& 16238  $(\approx 77 \%)$ & 15213 $(\approx 72 \%)$  & 13875 $(\approx 77 \%)$  &13233 $(\approx 77 \%)$  &11582$(\approx 77 \%)$  &10912$(\approx 77 \%)$  & 9376 $(\approx 77 \%)$ \\
+%          \hline
+% 	\end{tabular}		
+% \end{table}
+
+\begin{table}[thb]
 	\centering
-	\begin{tabular}{|c|c|c|c|c|c|c|c|}
-	\hline
-	  Weighting Factor ($\beta$) & 0 & 0.1 & 0.5 & 1 & 5 & 10 & 100  \\
-        \hline
-        ENOB & 9.392  & 9.374  & 8.694  &  8.036 & 6.574  & 6.080 & 4.000 \\
-        \hline
-        Total number of switches (/21021) & 16238 & 15213 & 13875 &13233  &11582 &10912 & 9376 \\
-         \hline
-	\end{tabular}		
+\caption{Simulation Results: Carrier Frequency $ 999 Hz$, Total number of samples: 21021.}
+	\begin{tabular}{ | m{3cm} | m{1.8cm}| m{1.8cm} | m{1.8cm}| m{1.8cm} |m{1.8cm}| m{1.8cm} |m{1.8cm}| } 
+	  \hline
+	  Weignting Factor ($\beta$)& 0 & 0.1 & 0.5 & 1 & 5 & 10  & 100\\ 
+	  \hline
+	  ENOB & 9.392 & 9.374 & 8.694 & 8.036 & 6.574 & 6.080 & 4.000\\ 
+	  \hline
+	  Total number of switches (\% switching of total number of samples)& 16238  $(\approx 77 \%)$ & 15213  $(\approx 72 \%)$  & 13875 $(\approx 66 \%)$ & 13233  $(\approx 63 \%)$ & 11582  $(\approx 55 \%)$ & 10912  $(\approx 52 \%)$ & 9376  $(\approx 45 \%)$ \\ 
+	  \hline
+	\end{tabular}
 \end{table}
-
-
 
 % \begin{figure}[!h]
 % 	\centering
@@ -872,19 +886,63 @@ The optimization problem \eqref{eq:optobj1}-\eqref{eq:optconst3} can be reformul
 
 
 \newpage
-\begin{table}[!h]
-\caption{Simulation Results: Carrier Frequency $ 99 Hz$}
+% \begin{table}[!h]
+% \caption{Simulation Results: Carrier Frequency $ 99 Hz$}
+% 	\centering
+% 	\begin{tabular}{|c|c|c|c|c|c|c|c|}
+% 	\hline
+% 	  Weighting Factor ($\beta$) & 0 & 0.1 & 0.5 & 1 & 5 & 10 & 100  \\
+%         \hline
+%         ENOB & 7.802  & 7.716 & 7.209  &  6.730 & 5.704  & 5.222 & 3.56 \\
+%         \hline
+%         Total number of switches (/40404) & 30987 & 28909 & 25392 & 24937  & 19577 & 19205 & 15953 \\
+%          \hline
+% 	\end{tabular}		
+% \end{table}
+
+
+% \begin{table}[thb]
+% 	\centering
+% \caption{Simulation Results: Carrier Frequency $ 99 Hz$, Total number of samples: 40404.}
+% 	\begin{tabular}{ | m{3cm} | m{1.8cm}| m{1.8cm} | m{1.8cm}| m{1.8cm} |m{1.8cm}| m{1.8cm} |m{1.8cm}| } 
+% 	  \hline
+% 	  Weignting Factor ($\beta$)& 0 & 0.1 & 0.5 & 1 & 5 & 10  & 100\\ 
+% 	  \hline
+% 	  ENOB & 7.802 & 7.716 & 7.209 & 6.730 & 5.704 & 5.222 & 3.560\\ 
+% 	  \hline
+% 	  Total number of switches (\% switching of total number of samples)& 30987 $(\approx 77 \%)$ & 28909 $(\approx 72 \%)$  & 25392 $(\approx 63 \%)$ & 24937  $(\approx 62 \%)$ & 19577 $(\approx 48 \%)$ & 19205 $(\approx 48 \%)$ & 15953  $(\approx 39 \%)$ \\ 
+% 	  \hline
+% 	\end{tabular}
+% \end{table}
+
+
+\begin{table}[thb]
 	\centering
-	\begin{tabular}{|c|c|c|c|c|c|c|c|}
-	\hline
-	  Weighting Factor ($\beta$) & 0 & 0.1 & 0.5 & 1 & 5 & 10 & 100  \\
-        \hline
-        ENOB & 7.802  & 7.716 & 7.209  &  6.730 & 5.704  & 5.222 & 3.56 \\
-        \hline
-        Total number of switches (/40404) & 30987 & 28909 & 25392 & 24937  & 19577 & 19205 & 15953 \\
-         \hline
-	\end{tabular}		
+\caption{Simulation Results: Carrier Frequency $ 99 Hz$, Total number of samples: 111111.}
+	\begin{tabular}{ | m{3cm} | m{1.8cm}| m{1.8cm} | m{1.8cm}| m{1.8cm} |m{1.8cm}| m{1.8cm} |m{1.8cm}| } 
+	  \hline
+	  Weignting Factor ($\beta$)& 0 & 0.1 & 0.5 & 1 & 5 & 10  & 100\\ 
+	  \hline
+	  ENOB & 9.444 & 9.177 &  8.693 &8.158  & 6.833 & 5.845 & 3.733\\ 
+	  \hline
+	  Total number of switches (\% switching of total number of samples)& 85548 $(\approx 77 \%)$ & 79474 $(\approx 72 \%)$  & 70175  $(\approx 63 \%)$ &  68803 $(\approx 62 \%)$ & 53833$(\approx 48\%)$ & 53319$(\approx 48 \%)$ & 43703 $(\approx 39 \%)$ \\ 
+	  \hline
+	\end{tabular}
 \end{table}
+
+% \begin{table}[!h]
+% 	\caption{Simulation Results: Carrier Frequency $ 99 Hz$}
+% 		\centering
+% 		\begin{tabular}{|c|c|c|c|c|c|c|c|}
+% 		\hline
+% 		  Weighting Factor ($\beta$) & 0 & 0.1 & 0.5 & 1 & 5 & 10 & 100  \\
+% 			\hline
+% 			ENOB & 9.444  & 9.177 & 7.209  &  6.730 & 5.704  & 5.222 & 3.56 \\
+% 			\hline
+% 			Total number of switches (/111111) & 85548 & 79474 & 25392 & 24937  & 19577 & 19205 & 15953 \\
+% 			 \hline
+% 		\end{tabular}		
+% 	\end{table}
 \begin{figure}[!h]
 	\centering
 	\begin{minipage}{0.45\linewidth}

@@ -67,7 +67,7 @@ Xcs_FREQ = 99
 
 # %% Generate time vector
 
-match 1:
+match 2:
     case 1:  # specify duration as number of samples and find number of periods
         Nts = 1e5  # no. of time samples
         Np = np.ceil(Xcs_FREQ*Ts*Nts).astype(int) # no. of periods for carrier
@@ -98,7 +98,7 @@ YQns = YQ/Qstep
 MLns = MLns/Qstep
 # YQns = (2**(Nb-1))*YQns # Ideal quantiser levels
 # MLns = (2**(Nb-1))*MLns  # Measured quantiser levels
-Qstep = 1
+# Qstep = 1
 
 # fig,ax = plt.subplots()
 # ax.plot(t, Xcs)
@@ -118,7 +118,7 @@ A, B, C, D = balreal(A1, B1, C1, D1)
 e, v = np.linalg.eig(A)
 
 # %% MHOQ Binary formulation
-N_PRED = 1
+N_PRED = 3
 SWITCH_MIN = True
 
 match QMODEL:
@@ -132,23 +132,24 @@ C_Store = []
 # Loop length
 len_MPC = Xcs.size - N_PRED
 
-# len_MPC = 1
+# len_MPC = 10
 # State dimension
 x_dim =  int(A.shape[0]) 
+
+
+# Rate limit 
+L = 5e6
 
 # Initial state
 init_state = np.zeros(x_dim).reshape(-1,1)
 
-u_kminus1_init = np.zeros((2**Nb, N_PRED))
+u_kminus1 = np.round(Xcs[:N_PRED]).reshape(-1,1)
 # MPC loop
 for j in tqdm.tqdm(range(len_MPC)):
 
     m = gp.Model("MPC- INL")
-    u = m.addMVar((2**Nb, N_PRED), vtype=GRB.BINARY, name= "u") # control variable
-    x = m.addMVar((x_dim*(N_PRED+1),1), vtype= GRB.CONTINUOUS, lb = -GRB.INFINITY, ub = GRB.INFINITY, name = "x")  # State varible 
-    Ns = m.addMVar((1,1), lb = 0,  name = "ns")
-    w = m.addMVar((2**Nb,1), vtype= GRB.BINARY,  name="w")
-    v = m.addMVar((2**Nb,1), vtype= GRB.BINARY,  name="v")
+    u = m.addMVar((N_PRED,1), vtype=GRB.INTEGER, name= "u", lb = 0, ub =  2**Nb-1) # control variable
+    x = m.addMVar((x_dim*(N_PRED+1),1), vtype= GRB.CONTINUOUS, lb = -GRB.INFINITY, ub = GRB.INFINITY, name = "x")  # 
 
     # Add objective function
     Obj = 0
@@ -158,10 +159,8 @@ for j in tqdm.tqdm(range(len_MPC)):
     for i in range(N_PRED):
         k = x_dim * i
         st = x[k:k+x_dim]
-        bin_con =  QL.reshape(1,-1) @ u[:,i].reshape(-1,1) 
-        con = bin_con - Xcs[j+i]
+        con = u[i,0] - Xcs[j+i]
 
-        # Switching set 
         # Objective update
         e_t = C @ x[k:k+x_dim] + D * con
         Obj = Obj + e_t * e_t 
@@ -171,26 +170,9 @@ for j in tqdm.tqdm(range(len_MPC)):
         st_next = x[k+x_dim:k+2*x_dim]
         m.addConstr(st_next == f_value)
 
-        # Binary varialble constraint
-        consi = gp.quicksum(u[:,i]) 
-        m.addConstr(consi == 1)
-        # m.update
-
-        # u_kminus1 = u_kminus1_init
-        # Sw = u[:,i].reshape(-1,1)- u_kminus1[:,i].reshape(-1,1)
-        # for k in range(0, 2**Nb): 
-        #     m.addConstr(v[k,i]== u[k,i]- u_kminus1[k,i])  
-        #     m.addConstr(w[k,i]== gp.abs_(v[k,i]))
-        #     m.addConstr(Ns == w.sum())
-
-    # if SWITCH_MIN: 
-        u_kminus1 = u_kminus1_init
-        Sw2 =  u[:,i].reshape(-1,1) - u_kminus1[:,i].reshape(-1,1)
-        Ns = 0
-        for i in range(0, Sw2.size):
-            Ns = Ns + Sw2[i,0]* Sw2[i,0]
-            # Ns = Ns + gp.abs_(Sw2[i,0])
-        Obj = Obj + 100*Ns
+        
+        # m.addConstr(u[i,0] - u_kminus1[i,0] <=  L*Ts)
+        # m.addConstr(- u[i,0] +  u_kminus1[i,0] <=  L*Ts)
 
 
     m.update
@@ -212,27 +194,26 @@ for j in tqdm.tqdm(range(len_MPC)):
     values = m.getAttr("X",allvars)
     values = np.array(values)
 
-    # Variable dimension
-    nr, nc = u.shape
-    u_val = values[0:nr*nc]
-    u_val = np.reshape(u_val, (2**Nb, N_PRED))
+    # Extract only the value of the variable "u", value of the variable "x" are not needed
+    C_MPC = values[0:N_PRED]
 
-    # Extract Code
-    C_MPC = []
-    for i in range(N_PRED):
-        c1 = np.nonzero(u_val[:,i])[0][0]
-        c1 = int(c1)
-        C_MPC.append(c1)
-    C_MPC = np.array(C_MPC)
+    # Ideally they should be integral, but gurobi generally return them in floating point values according to the precision tolorence set: m.Params.IntFeasTol
+    # Round off to nearest integers
+    C_MPC = C_MPC.astype(int)
+
+    # Store only the first value /code
     C_Store.append(C_MPC[0])
 
+    # Get DAC level according to the coe
     U_opt = QL[C_MPC[0]] 
+
     # State prediction 
     con = U_opt - Xcs[j]
     x0_new =  A @ init_state + B * con
+
     # State update for subsequent prediction horizon 
     init_state = x0_new
-    u_kminus1_init = u_val
+    u_kminus1 = C_MPC.reshape(-1,1)
 C_MHOQ  = np.array(C_Store).reshape(1,-1)
 
 match QMODEL:
@@ -248,8 +229,8 @@ for i in range(1, Xcs_MHOQ.size):
         S_counter += 1
 print("Total number of switches:",S_counter)
 # # %%
-# sl = C_MHOQ.size
-sl = 2000
+sl = C_MHOQ.size
+# sl = 100
 fig, ax = plt.subplots()
 ax.plot(t[0:sl], Xcs.squeeze()[0:sl])
 ax.plot(t[0:sl], C_MHOQ.squeeze()[0:sl])

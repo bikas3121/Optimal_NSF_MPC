@@ -1,3 +1,5 @@
+% optimal NSF using extended LMIs
+
 % example_yalmip
 yalmip('clear')
 clear 
@@ -41,7 +43,8 @@ MC_tilde = [Wf, zeros(1,n)];
 
 C1 = [MP MA MB; MA' MP zeros(2*n,1); MB' zeros(1,2*n) eye(1)];
 C2 = [mu_e MC Dh'; MC' MP zeros(2*n,1); Dh zeros(1,2*n) eye(1)];
-C3 = [mu_eta MC_tilde; MC_tilde' MP];
+C3 = [MP MA MB zeros(1, 2*n); MA' MP zeros(2*n,1) MC_tilde]
+% C3 = [mu_eta MC_tilde; MC_tilde' MP];
 
 BC1 = eye(2*n + 2*n + 1 );
 BC2 = eye(1 + 2*n + 1 );
@@ -156,18 +159,5 @@ grid minor
 
 
 
-%%
-% 
-% figure
-% plot(wlp1(1:sl)/2*pi*1e-3, 20*log10(abs(hlp1(1:sl))));
-% hold on 
-% plot(wf(1:sl)/2*pi*1e-3, 20*log10(abs(hf(1:sl))));
-% 
-% 
-% 
-% legend("$H_{MPC}(z)$", "$F_{opt}(z)$", 'Interpreter','latex')
-% grid minor
-% xlabel('Frequency (kHz)')
-% ylabel("Magnitude (dB)")
 
 

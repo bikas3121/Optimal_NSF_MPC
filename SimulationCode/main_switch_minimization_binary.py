@@ -63,7 +63,7 @@ N_lp = 3
 Fc_lp = 1e5 # cutoff frequency
 # %% Carrier signal
 Xcs_SCALE = 100
-Xcs_FREQ = 99
+Xcs_FREQ = 999
 
 # %% Generate time vector
 
@@ -93,15 +93,15 @@ MLns = get_measured_levels(Qconfig)
 QMODEL = 1
 
 # %% Scaled 
-Xcs = Xcs/Qstep
-YQns = YQ/Qstep
-MLns = MLns/Qstep
-# YQns = (2**(Nb-1))*YQns # Ideal quantiser levels
-# MLns = (2**(Nb-1))*MLns  # Measured quantiser levels
-Qstep = 1
+# Xcs = Xcs/Qstep
+# YQns = YQ/Qstep
+# MLns = MLns/Qstep
+# # YQns = (2**(Nb-1))*YQns # Ideal quantiser levels
+# # MLns = (2**(Nb-1))*MLns  # Measured quantiser levels
+# Qstep = 1
 
-# fig,ax = plt.subplots()
-# ax.plot(t, Xcs)
+fig,ax = plt.subplots()
+ax.plot(t, Xcs)
 # %% Reconstruction filter parameters 
 match 1:
     case 1: # LPF derived from optimal NTF Optimal NTF
@@ -133,6 +133,7 @@ C_Store = []
 len_MPC = Xcs.size - N_PRED
 
 # len_MPC = 1
+L = 1e6
 # State dimension
 x_dim =  int(A.shape[0]) 
 
@@ -140,6 +141,8 @@ x_dim =  int(A.shape[0])
 init_state = np.zeros(x_dim).reshape(-1,1)
 
 u_kminus1 = np.zeros((2**Nb, N_PRED))
+
+# u_kminus1 = np.round(Xcs[:N_PRED]).reshape(-1,1)
 # MPC loop
 for j in tqdm.tqdm(range(len_MPC)):
 
@@ -175,22 +178,22 @@ for j in tqdm.tqdm(range(len_MPC)):
         consi = gp.quicksum(u[:,i]) 
         m.addConstr(consi == 1)
         # m.update
+        
+        y_t = bin_con
+        y_t_minus1 = QL.reshape(1,-1) @ u_kminus1
 
-        # u_kminus1 = u_kminus1_init
-        # Sw = u[:,i].reshape(-1,1)- u_kminus1[:,i].reshape(-1,1)
-        # for k in range(0, 2**Nb): 
-        #     m.addConstr(v[k,i]== u[k,i]- u_kminus1[k,i])  
-        #     m.addConstr(w[k,i]== gp.abs_(v[k,i]))
-        #     m.addConstr(Ns == w.sum())
+        m.addConstr((y_t - y_t_minus1)/Ts <= L)
+        m.addConstr( ( y_t_minus1 - y_t)/Ts <= L)
 
     # if SWITCH_MIN: 
-        # u_kminus1 = u_kminus1_init
         Sw2 =  u[:,i].reshape(-1,1) - u_kminus1[:,i].reshape(-1,1)
         Ns = 0
         for i in range(0, Sw2.size):
             Ns = Ns + Sw2[i,0]* Sw2[i,0]
             # Ns = Ns + gp.abs_(Sw2[i,0])
-        Obj = Obj + 100*Ns
+        Obj = Obj + 0*Ns
+
+
 
 
     m.update
@@ -249,10 +252,10 @@ for i in range(1, Xcs_MHOQ.size):
 print("Total number of switches:",S_counter)
 # # %%
 # sl = C_MHOQ.size
-sl = 2000
+sl = 1000
 fig, ax = plt.subplots()
 ax.plot(t[0:sl], Xcs.squeeze()[0:sl])
-ax.plot(t[0:sl], C_MHOQ.squeeze()[0:sl])
+ax.plot(t[0:sl], Xcs_MHOQ.squeeze()[0:sl])
 ax.grid()
 # %%
 tm = t[:Xcs.size - N_PRED]

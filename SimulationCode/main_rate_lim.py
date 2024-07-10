@@ -67,7 +67,7 @@ Xcs_FREQ = 99
 
 # %% Generate time vector
 
-match 2:
+match 1:
     case 1:  # specify duration as number of samples and find number of periods
         Nts = 1e5  # no. of time samples
         Np = np.ceil(Xcs_FREQ*Ts*Nts).astype(int) # no. of periods for carrier
@@ -118,7 +118,7 @@ A, B, C, D = balreal(A1, B1, C1, D1)
 e, v = np.linalg.eig(A)
 
 # %% MHOQ Binary formulation
-N_PRED = 3
+N_PRED = 1
 SWITCH_MIN = True
 
 match QMODEL:
@@ -138,8 +138,9 @@ x_dim =  int(A.shape[0])
 
 
 # Rate limit 
-L = 5e6
+L = 1e6
 
+LrTs = L*Ts
 # Initial state
 init_state = np.zeros(x_dim).reshape(-1,1)
 
@@ -171,8 +172,8 @@ for j in tqdm.tqdm(range(len_MPC)):
         m.addConstr(st_next == f_value)
 
         
-        # m.addConstr(u[i,0] - u_kminus1[i,0] <=  L*Ts)
-        # m.addConstr(- u[i,0] +  u_kminus1[i,0] <=  L*Ts)
+        m.addConstr((u[i,0] - u_kminus1[i,0])/Ts <=  L)
+        m.addConstr(( u_kminus1[i,0] - u[i,0])/Ts <=  L)
 
 
     m.update
@@ -229,8 +230,8 @@ for i in range(1, Xcs_MHOQ.size):
         S_counter += 1
 print("Total number of switches:",S_counter)
 # # %%
-sl = C_MHOQ.size
-# sl = 100
+# sl = C_MHOQ.size
+sl = 1500
 fig, ax = plt.subplots()
 ax.plot(t[0:sl], Xcs.squeeze()[0:sl])
 ax.plot(t[0:sl], C_MHOQ.squeeze()[0:sl])
